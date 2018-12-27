@@ -19,6 +19,7 @@ export class AuthComponent extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+
     onSubmit(event) {
 
         apiService.authentication({login: this.state.login, password: this.state.password})
@@ -42,9 +43,7 @@ export class AuthComponent extends React.Component {
         this.setState({password: event.target.value});
     }
 
-    onValidationChange(event) {
-        this.setState({validation: event.target.value});
-    }
+
 
     render() {
         return (

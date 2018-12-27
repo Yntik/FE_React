@@ -17,5 +17,13 @@ export const apiService = {
                 token: lsService.get()
             }
         })
+    },
+
+    getMasters: () => {
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/masters', {
+            headers: {
+                token: lsService.get()
+            }
+        })
     }
 };
