@@ -48,7 +48,6 @@ export class MastersComponent extends React.Component {
 
     render() {
         return <div>
-            <h1>HomePageComponent</h1>
             <UserList users={this.state.masters}/>
         </div>
     }

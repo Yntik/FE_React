@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {connect} from 'react-redux'
 
 import {apiService} from "../../services/api-service/api-service";
 
-export class HomePageComponent extends React.Component {
+class HomePageComponent extends React.Component {
 
 
     constructor(props) {
@@ -26,3 +27,9 @@ export class HomePageComponent extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    console.log(state)
+    return state
+}
+
+export default connect(mapStateToProps)(HomePageComponent);

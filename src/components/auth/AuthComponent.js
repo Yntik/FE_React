@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import { Provider } from 'react-redux'
 import {FormComponent} from "./Form";
+import {connect} from 'react-redux'
 
 import {apiService} from "../../services/api-service/api-service";
 import {lsService} from "../../services/LS-service/ls-service";
 
-export class AuthComponent extends React.Component {
+class AuthComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,8 +58,22 @@ export class AuthComponent extends React.Component {
     }
 }
 
-ReactDOM.render(
-    <AuthComponent/>,
-    document.getElementById('root')
-);
+const initialState = {
+    name: "oleg",
+    surname: "belka"
+}
+
+const reducer = (state = initialState, action) => {
+    return state;
+}
+
+const mapStateToProps = (state) => {
+    console.log(state)
+    return {
+        test: 1
+    }
+}
+
+export default connect(mapStateToProps)(AuthComponent);
+
 
