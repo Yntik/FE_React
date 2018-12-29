@@ -1,30 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 
 import {apiService} from "../../services/api-service/api-service";
+import {connect} from "react-redux";
+import {getMasters} from "../../store/action/mastersAction";
 
 
-function UserItem(props){
-    const user = props.user
-    //Правильно! Здесь не нужно указывать ключ:
-    return (<li>{user.name}, {user.surname}
-        <button type="button" className="btn btn-primary">Primary</button> </li>)
-}
-
-
-function UserList(props){
-    const users = props.users;
-    const items = users.map((user) => {
-        //Правильно! Здесь должен быть указан ключ:
-        return <UserItem key={user.id} user={user}/>;
-    });
-    return (
-
-        <ul>Имя, Фамилия, Клик{items}</ul>);
-}
-
-
-export class MastersComponent extends React.Component {
+class MastersComponent extends React.Component {
 
 
     constructor(props) {
@@ -32,24 +13,53 @@ export class MastersComponent extends React.Component {
         apiService.checkToken()
             .then(res => {
                 console.log('success');
+                apiService.getMasters()
+                    .then(res => {
+                        props.dispatch(getMasters(res.data.data));
+                    })
             })
             .catch(err => {
                 this.props.history.push(`/login`)
             })
-        this.state = {
-            masters: []
-        }
-        apiService.getMasters()
-            .then(res => {
-                console.log(res.data.data);
-                this.setState({masters: res.data.data})
-            })
     }
 
     render() {
-        return <div>
-            <UserList users={this.state.masters}/>
+        return <div className="jumbotron">
+            <h1>Список мастеров</h1>
+            <p>Количество мастеров {this.props.masters.length}</p>
+            <button type="button" className="btn btn-success">Добавить мастера</button>
+            <table className="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Рейтинг</th>
+                    <th scope="col">Город</th>
+                    <th scope="col">Редактировать</th>
+                    <th scope="col">Удалить</th>
+                </tr>
+                </thead>
+                <tbody>
+                {this.props.masters.map((master, i) => {
+                    return (
+                        <tr key={i} className="table-info">
+                            <td>{master.name}</td>
+                            <td>{master.surname}</td>
+                            <td>{master.rating}</td>
+                            <td>{master.city}</td>
+                            <td>button</td>
+                            <td>delete</td>
+                        </tr>
+                    );
+                })}
+                </tbody>
+            </table>
         </div>
     }
 }
 
+const mapStateToProps = (state) => {
+    return state.mastersState
+}
+
+export default connect(mapStateToProps)(MastersComponent);

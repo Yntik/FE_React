@@ -14,6 +14,7 @@ class HomePageComponent extends React.Component {
                 console.log('success');
             })
             .catch(err => {
+                console.log('false homepage');
                 this.props.history.push(`/login`)
             })
 

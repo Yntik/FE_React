@@ -11,24 +11,20 @@ import {logger} from 'redux-logger';
 import createHistory from 'history/createBrowserHistory';
 import {Router, Route, Switch} from 'react-router';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
+import {initialState} from "./store/initialState/initialState";
+import {reducer} from "./store/reducer";
 
 import AuthComponent from './components/auth/AuthComponent'
 import HomePageComponent from './components/homepage/HomePageComponent'
+import MastersComponent from './components/masters/MastersComponent'
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
 
-const initialState = {
-    name: "oleg",
-    surname: "belka"
-}
 
-const reducer = (state = initialState, action) => {
-    return state;
-}
 
-export const store = createStore(reducer)
-console.log('blaa', store.getState());
+
+export const store = createStore(reducer);
 
 
 ReactDOM.render(
@@ -37,6 +33,7 @@ ReactDOM.render(
             <Switch>
                 <Route path='/login' component={AuthComponent}/>
                 <Route path='/homepage' component={HomePageComponent}/>
+                <Route path='/masters' component={MastersComponent}/>
             </Switch>
         </Router>
     </Provider>

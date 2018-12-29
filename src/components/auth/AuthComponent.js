@@ -6,6 +6,8 @@ import {connect} from 'react-redux'
 
 import {apiService} from "../../services/api-service/api-service";
 import {lsService} from "../../services/LS-service/ls-service";
+import {initialState} from "../../store/initialState/initialState";
+
 
 class AuthComponent extends React.Component {
     constructor(props) {
@@ -26,6 +28,7 @@ class AuthComponent extends React.Component {
         apiService.authentication({login: this.state.login, password: this.state.password})
             .then(res => {
                 //store LS_
+                console.log('success');
                 this.setState({validation: true});
                 lsService.save({token: res.data.data});
                 this.props.history.push(`/homepage`)
@@ -58,20 +61,11 @@ class AuthComponent extends React.Component {
     }
 }
 
-const initialState = {
-    name: "oleg",
-    surname: "belka"
-}
 
-const reducer = (state = initialState, action) => {
-    return state;
-}
+
 
 const mapStateToProps = (state) => {
-    console.log(state)
-    return {
-        test: 1
-    }
+    return {}
 }
 
 export default connect(mapStateToProps)(AuthComponent);
