@@ -17,7 +17,7 @@ import {reducer} from "./store/reducer";
 import AuthComponent from './components/auth/AuthComponent'
 import HomePageComponent from './components/homepage/HomePageComponent'
 import MastersComponent from './components/masters/MastersComponent'
-
+import AddMasterComponent from './components/add_master/AddMasterComponent'
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
 
@@ -34,6 +34,7 @@ ReactDOM.render(
                 <Route path='/login' component={AuthComponent}/>
                 <Route path='/homepage' component={HomePageComponent}/>
                 <Route path='/masters' component={MastersComponent}/>
+                <Route path='/add_master' component={AddMasterComponent}/>
             </Switch>
         </Router>
     </Provider>

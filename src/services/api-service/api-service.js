@@ -25,5 +25,19 @@ export const apiService = {
                 token: lsService.get()
             }
         })
+    },
+
+    getCities: () => {
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/cities')
+    },
+
+    addMaster: ({name, surname, rating, city}) => {
+        return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/masters', {
+            token: lsService.get(),
+            name: name,
+            surname: surname,
+            rating: rating,
+            city: city
+        })
     }
 };

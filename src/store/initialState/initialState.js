@@ -1,6 +1,7 @@
 import {mastersState} from "./mastersState";
-
+import {addMasterState} from "./addMasterState";
 
 export const initialState = {
-    mastersState: mastersState
+    mastersState: mastersState,
+    addMasterState: addMasterState
 }
