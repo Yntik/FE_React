@@ -23,17 +23,34 @@ class MastersComponent extends React.Component {
             })
         this.onAddMaster = this.onAddMaster.bind(this);
     }
+
     onAddMaster(event) {
         console.log(event)
         this.props.history.push(`/add_master`);
     }
 
+
     render() {
+
+        const onEditMaster = (master) => {
+            this.props.history.push({
+                pathname: '/edit_master',
+                search: `?id=${master.id}&name=${master.name}&surname=${master.surname}&rating=${master.rating}&city=${master.idcity}`,
+            })
+        }
+        const onDeleteMaster = (master) => {
+            console.log('egp')
+            apiService.delete({id: master.id, route: 'masters'})
+            apiService.getMasters()
+                .then(res => {
+                    this.props.dispatch(getMasters(res.data.data));
+                })
+        }
         return <div className="container">
             <div className="jumbotron">
                 <h1>Список мастеров</h1>
                 <p>Количество мастеров {this.props.masters.length}</p>
-                <button type="button" className="btn btn-success" onClick={this.onAddMaster} >Добавить мастера</button>
+                <button type="button" className="btn btn-success" onClick={this.onAddMaster}>Добавить мастера</button>
                 <table className="table table-hover">
                     <thead>
                     <tr>
@@ -53,8 +70,20 @@ class MastersComponent extends React.Component {
                                 <td>{master.surname}</td>
                                 <td>{master.rating}</td>
                                 <td>{master.city}</td>
-                                <td>Red</td>
-                                <td>delete</td>
+                                <td><input
+                                    type="button"
+                                    value="Редактировать"
+                                    onClick={(event) => {
+                                        onEditMaster(master)
+                                    }}/></td>
+                                <td><input
+                                    type="button"
+                                    value="Удалить"
+                                    onClick={(event) => {
+                                        if (window.confirm('Вы действительно хотите удалить запись?')) {
+                                            onDeleteMaster(master)
+                                        }
+                                    }}/></td>
                             </tr>
                         );
                     })}

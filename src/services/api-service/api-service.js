@@ -39,5 +39,30 @@ export const apiService = {
             rating: rating,
             city: city
         })
+    },
+
+    editMaster: ({name, surname, rating, city, id}) => {
+        return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/masters', {
+                token: lsService.get(),
+                id: id,
+                name: name,
+                surname: surname,
+                rating: rating,
+                city: city
+            }
+        )
+    },
+
+    delete: ({id, route}) => {
+        console.log('blaa')
+        return axios.delete(apiConfig.ROUTER_OPTIONS.Back_End_Url + `/protected/${route}`, {
+            params: {
+                id: id,
+                route: route
+            },
+            headers: {
+                token: lsService.get()
+            }
+        })
     }
 };
