@@ -80,5 +80,41 @@ export const apiService = {
 
             }
         )
+    },
+
+    getOrders: () => {
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/orders', {
+            headers: {
+                token: lsService.get()
+            }
+        })
+    },
+
+    getProducts: () => {
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/product')
+    },
+
+    getFreeMasters: ({size, city, datetime}) => {
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/free-master',{
+            params: {
+                size: size,
+                city: city,
+                datetime: datetime,
+                option: 'new'
+            }
+        })
+    },
+
+    addOrder: ({name, email, city, product, size, master, datetime}) => {
+        return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/orders', {
+            token: lsService.get(),
+            client: name,
+            email: email,
+            size: size,
+            product: product,
+            city: city,
+            master: master,
+            datetime: datetime
+        })
     }
 };

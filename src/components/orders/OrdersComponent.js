@@ -1,12 +1,11 @@
 import React from 'react'
+import moment from 'moment'
 
 import {apiService} from "../../services/api-service/api-service";
 import {connect} from "react-redux";
-import {getMasters} from "../../store/action/mastersAction";
-import {bindActionCreators} from "redux";
+import {getOrders} from "../../store/action/ordersAction";
 
-
-class MastersComponent extends React.Component {
+class OrdersComponent extends React.Component {
 
 
     constructor(props) {
@@ -14,21 +13,21 @@ class MastersComponent extends React.Component {
         apiService.checkToken()
             .then(res => {
                 console.log('success');
-                apiService.getMasters()
+                apiService.getOrders()
                     .then(res => {
-                        this.props.getMasters(res.data.data);
-                        console.log(this.props);
+                        console.log(res.data.data);
+                        props.dispatch(getOrders(res.data.data));
                     })
             })
             .catch(err => {
                 this.props.history.push(`/login`)
             })
-        this.onAddMaster = this.onAddMaster.bind(this);
+        this.onAddOrder = this.onAddOrder.bind(this);
     }
 
-    onAddMaster(event) {
+    onAddOrder(event) {
         console.log(event)
-        this.props.history.push(`/add_master`);
+        this.props.history.push(`/add_order`);
     }
 
 
@@ -45,45 +44,55 @@ class MastersComponent extends React.Component {
             apiService.delete({id: master.id, route: 'masters'})
             apiService.getMasters()
                 .then(res => {
-                    this.props.getMasters(res.data.data);
+                    this.props.dispatch(getOrders(res.data.data));
                 })
         }
         return <div className="container">
             <div className="jumbotron">
-                <h1>Список мастеров</h1>
-                <p>Количество мастеров {this.props.masters.length}</p>
-                <button type="button" className="btn btn-success" onClick={this.onAddMaster}>Добавить мастера</button>
+                <h1>Список заказов</h1>
+                <p>Количество заказов {this.props.orders.length}</p>
+                <button type="button" className="btn btn-success" onClick={this.onAddOrder}>Добавить заказ</button>
                 <table className="table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">Имя</th>
-                        <th scope="col">Фамилия</th>
-                        <th scope="col">Рейтинг</th>
+                        <th scope="col">Имя клиента</th>
+                        <th scope="col">Электронный адрес</th>
                         <th scope="col">Город</th>
+                        <th scope="col">Размер часов</th>
+                        <th scope="col">Имя мастера</th>
+                        <th scope="col">Фамилия мастера</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Начало работы</th>
+                        <th scope="col">Конец работы</th>
                         <th scope="col">Редактировать</th>
                         <th scope="col">Удалить</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {this.props.masters.map((master, i) => {
+                    {this.props.orders.map((order, i) => {
                         return (
                             <tr key={i} className="table-info">
-                                <td>{master.name}</td>
-                                <td>{master.surname}</td>
-                                <td>{master.rating}</td>
-                                <td>{master.city}</td>
+                                <td>{order.client}</td>
+                                <td>{order.email}</td>
+                                <td>{order.city}</td>
+                                <td>{order.size}</td>
+                                <td>{order.name}</td>
+                                <td>{order.surname}</td>
+                                <td>{order.price}</td>
+                                <td>{moment(order.start).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                                <td>{moment(order.end).format('MMMM Do YYYY, h:mm:ss a')}</td>
                                 <td><input
                                     type="button"
                                     value="Редактировать"
                                     onClick={(event) => {
-                                        onEditMaster(master)
+                                        onEditMaster(order)
                                     }}/></td>
                                 <td><input
                                     type="button"
                                     value="Удалить"
                                     onClick={(event) => {
                                         if (window.confirm('Вы действительно хотите удалить запись?')) {
-                                            onDeleteMaster(master)
+                                            onDeleteMaster(order)
                                         }
                                     }}/></td>
                             </tr>
@@ -97,13 +106,7 @@ class MastersComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return state.mastersState
-};
+    return state.ordersState
+}
 
-const mapActionToProps = (dispatch) => {
-    return {
-        getMasters: bindActionCreators(getMasters, dispatch),
-    };
-};
-
-export default connect(mapStateToProps, mapActionToProps)(MastersComponent);
+export default connect(mapStateToProps)(OrdersComponent);

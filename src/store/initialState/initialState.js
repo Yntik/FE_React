@@ -5,10 +5,15 @@ import {editMasterState} from "./editMasterState";
 import {citiesState} from "./citiesState";
 import {addCityState} from "./addCityState";
 
+import {ordersState} from "./ordersState";
+import {addOrderState} from "./addOrderState";
+
 export const initialState = {
     mastersState: mastersState,
     addMasterState: addMasterState,
     editMasterState: editMasterState,
     citiesState: citiesState,
-    addCityState: addCityState
-}
+    addCityState: addCityState,
+    ordersState: ordersState,
+    addOrderState: addOrderState
+};

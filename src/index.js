@@ -24,6 +24,8 @@ import {HeaderComponent} from "./components/header/HeaderComponent";
 import CitiesComponent from "./components/cities/CitiesComponent";
 import AddCityComponent from './components/add_city/AddCityComponent'
 import {EditCityComponent} from './components/edit_city/EditCityComponent'
+import OrdersComponent from "./components/orders/OrdersComponent";
+import AddOrderComponent from "./components/add_order/AddOrderComponent";
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -47,6 +49,8 @@ ReactDOM.render(
                 <Route path='/cities' component={CitiesComponent}/>
                 <Route path='/add_city' component={AddCityComponent}/>
                 <Route path='/edit_city' component={EditCityComponent}/>
+                <Route path='/orders' component={OrdersComponent}/>
+                <Route path='/add_order' component={AddOrderComponent}/>
             </Switch>
         </Router>
     </Provider>

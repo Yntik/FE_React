@@ -1,0 +1,3 @@
+export const ORDERS_ACTION = {
+    ACTION_GET_ORDERS: 'ACTION_GET_ORDERS'
+};

@@ -19,6 +19,7 @@ class AddMasterComponent extends React.Component {
                 console.log('success');
                 apiService.getCities()
                     .then(res => {
+                        console.log(res.data.data)
                         this.props.getCities(res.data.data);
                         this.props.chooseCity(res.data.data[0].id);
                     })
