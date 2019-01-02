@@ -1,0 +1,3 @@
+export const ACTION_MASTERS = {
+    ACTION_GET_MASTERS: 'ACTION_GET_MASTERS'
+}
