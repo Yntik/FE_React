@@ -21,6 +21,9 @@ import MastersComponent from './components/masters/MastersComponent'
 import AddMasterComponent from './components/add_master/AddMasterComponent'
 import EditMasterComponent from './components/edit_master/EditMasterComponent'
 import {HeaderComponent} from "./components/header/HeaderComponent";
+import CitiesComponent from "./components/cities/CitiesComponent";
+import AddCityComponent from './components/add_city/AddCityComponent'
+import {EditCityComponent} from './components/edit_city/EditCityComponent'
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -41,6 +44,9 @@ ReactDOM.render(
                 <Route path='/masters' component={MastersComponent}/>
                 <Route path='/add_master' component={AddMasterComponent}/>
                 <Route path='/edit_master' component={EditMasterComponent}/>
+                <Route path='/cities' component={CitiesComponent}/>
+                <Route path='/add_city' component={AddCityComponent}/>
+                <Route path='/edit_city' component={EditCityComponent}/>
             </Switch>
         </Router>
     </Provider>

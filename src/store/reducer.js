@@ -1,19 +1,21 @@
 import {initialState} from "./initialState/initialState";
-import {ACTION_MASTERS} from "./action/MASTERS_ACTION";
-import {ADD_ACTION_MASTER} from "./action/ADD_MASTER_ACTION";
-import {EDIT_ACTION_MASTER} from "./action/EDIT_MASTER_ACTION";
+import {MASTERS_ACTION} from "./action/MASTERS_ACTION";
+import {ADD_MASTER_ACTION} from "./action/ADD_MASTER_ACTION";
+import {EDIT_MASTER_ACTION} from "./action/EDIT_MASTER_ACTION";
+import {ACTION_CITIES} from "./action/CITIES_ACTION";
+import {ADD_CITY_ACTION} from "./action/ADD_CITY_ACTION";
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         ////////////////////////////////MASTERS///////////////////////////////////////////////
-        case ACTION_MASTERS.ACTION_GET_MASTERS:
+        case MASTERS_ACTION.ACTION_GET_MASTERS:
             return {
                 ...state, mastersState: {
                     masters: action.payload,
                 }
             };
         ////////////////////////////////ADD_MASTERS////////////////////////////////////////////
-        case ADD_ACTION_MASTER.ACTION_GET_CITIES:
+        case ADD_MASTER_ACTION.ACTION_GET_CITIES:
             return {
                 ...state, addMasterState: {
                     cities: action.payload,
@@ -25,7 +27,7 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
-        case ADD_ACTION_MASTER.ACTION_WRITE_NAME:
+        case ADD_MASTER_ACTION.ACTION_WRITE_NAME:
             return {
                 ...state, addMasterState: {
                     cities: state.addMasterState.cities,
@@ -37,7 +39,7 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
-        case ADD_ACTION_MASTER.ACTION_WRITE_SURNAME:
+        case ADD_MASTER_ACTION.ACTION_WRITE_SURNAME:
             return {
                 ...state, addMasterState: {
                     cities: state.addMasterState.cities,
@@ -49,7 +51,7 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
-        case ADD_ACTION_MASTER.ACTION_CHOOSE_RATING:
+        case ADD_MASTER_ACTION.ACTION_CHOOSE_RATING:
             if (!(action.payload >= 0 && action.payload <= 5)) {
                 action.payload = '';
             }
@@ -64,7 +66,7 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
-        case ADD_ACTION_MASTER.ACTION_CHOOSE_CITY:
+        case ADD_MASTER_ACTION.ACTION_CHOOSE_CITY:
             return {
                 ...state, addMasterState: {
                     cities: state.addMasterState.cities,
@@ -77,14 +79,14 @@ export const reducer = (state = initialState, action) => {
                 }
             };
         ////////////////////////////////EDIT_MASTER////////////////////////////////////////////
-        case EDIT_ACTION_MASTER.ACTION_ON_EDIT_MASTER:
+        case EDIT_MASTER_ACTION.ACTION_ON_EDIT_MASTER:
             return {
                 ...state, editMasterState: {
                     cities: state.editMasterState.cities,
                     master: action.payload
                 }
             };
-        case EDIT_ACTION_MASTER.ACTION_GET_CITIES:
+        case EDIT_MASTER_ACTION.ACTION_GET_CITIES:
             return {
                 ...state, editMasterState: {
                     cities: action.payload,
@@ -97,7 +99,7 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
-        case EDIT_ACTION_MASTER.ACTION_WRITE_NAME:
+        case EDIT_MASTER_ACTION.ACTION_WRITE_NAME:
             return {
                 ...state, editMasterState: {
                     cities: state.editMasterState.cities,
@@ -110,7 +112,7 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
-        case EDIT_ACTION_MASTER.ACTION_WRITE_SURNAME:
+        case EDIT_MASTER_ACTION.ACTION_WRITE_SURNAME:
             return {
                 ...state, editMasterState: {
                     cities: state.editMasterState.cities,
@@ -123,7 +125,7 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
-        case EDIT_ACTION_MASTER.ACTION_CHOOSE_RATING:
+        case EDIT_MASTER_ACTION.ACTION_CHOOSE_RATING:
             if (!(action.payload >= 0 && action.payload <= 5)) {
                 action.payload = '';
             }
@@ -139,7 +141,7 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
-        case EDIT_ACTION_MASTER.ACTION_CHOOSE_CITY:
+        case EDIT_MASTER_ACTION.ACTION_CHOOSE_CITY:
             return {
                 ...state, editMasterState: {
                     cities: state.editMasterState.cities,
@@ -149,6 +151,22 @@ export const reducer = (state = initialState, action) => {
                         rating: state.editMasterState.master.rating,
                         city: action.payload,
                         id: state.editMasterState.master.id
+                    }
+                }
+            };
+        ////////////////////////////////CITIES///////////////////////////////////////////////
+        case ACTION_CITIES.ACTION_GET_CITIES:
+            return {
+                ...state, citiesState: {
+                    cities: action.payload,
+                }
+            };
+        ////////////////////////////////ADD_CITY///////////////////////////////////////////////
+        case ADD_CITY_ACTION.ACTION_WRITE_NAME:
+            return {
+                ...state, addCityState: {
+                    city: {
+                        name: action.payload
                     }
                 }
             };

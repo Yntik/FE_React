@@ -1,0 +1,3 @@
+export const ADD_CITY_ACTION = {
+    ACTION_WRITE_NAME: 'ACTION_WRITE_NAME(City)'
+};

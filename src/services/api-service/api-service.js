@@ -54,7 +54,6 @@ export const apiService = {
     },
 
     delete: ({id, route}) => {
-        console.log('blaa')
         return axios.delete(apiConfig.ROUTER_OPTIONS.Back_End_Url + `/protected/${route}`, {
             params: {
                 id: id,
@@ -64,5 +63,22 @@ export const apiService = {
                 token: lsService.get()
             }
         })
+    },
+
+    addCity: ({name}) => {
+        return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/cities', {
+            token: lsService.get(),
+            newcity: name,
+        })
+    },
+
+    editCity: ({name, id}) => {
+        return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/cities', {
+                token: lsService.get(),
+                id: id,
+                newcity: name,
+
+            }
+        )
     }
 };
