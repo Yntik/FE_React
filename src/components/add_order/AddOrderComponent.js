@@ -76,13 +76,17 @@ class AddOrderComponent extends React.Component {
                 console.log('success');
                 apiService.getCities()
                     .then(res => {
+                        let cities = res.data.data;
+                        cities.unshift({city:"-Выберите город-"});
                         console.log(res.data.data);
-                        this.props.getCities(res.data.data);
+                        this.props.getCities(cities);
                     });
                 apiService.getProducts()
                     .then(res => {
+                        let products = res.data.data;
+                        products.unshift({size:"-Выберете ", price:" / цену-", });
                         console.log(res.data.data);
-                        this.props.getProducts(res.data.data)
+                        this.props.getProducts(products)
                     })
             })
             .catch(err => {

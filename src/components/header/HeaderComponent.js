@@ -27,7 +27,7 @@ export class HeaderComponent extends React.Component {
             <a className="btn btn-info" href='/clients'>Список клиентов</a>
           </li>
           <li className="nav-item">
-            <a className="btn btn-info" href='/product'>Ценовая политика</a>
+            <a className="btn btn-info" href='/products'>Ценовая политика</a>
           </li>
           <li className="nav-item">
           </li>

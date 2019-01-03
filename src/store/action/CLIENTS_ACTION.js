@@ -1,0 +1,4 @@
+export const CLIENTS_ACTION = {
+    ACTION_GET_CLIENTS: 'ACTION_GET_CLIENTS(Clients)',
+};
+

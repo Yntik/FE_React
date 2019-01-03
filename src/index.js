@@ -17,15 +17,28 @@ import {reducer} from "./store/reducer";
 
 import AuthComponent from './components/auth/AuthComponent'
 import HomePageComponent from './components/homepage/HomePageComponent'
+
 import MastersComponent from './components/masters/MastersComponent'
 import AddMasterComponent from './components/add_master/AddMasterComponent'
 import EditMasterComponent from './components/edit_master/EditMasterComponent'
+
 import {HeaderComponent} from "./components/header/HeaderComponent";
+
 import CitiesComponent from "./components/cities/CitiesComponent";
 import AddCityComponent from './components/add_city/AddCityComponent'
 import {EditCityComponent} from './components/edit_city/EditCityComponent'
+
 import OrdersComponent from "./components/orders/OrdersComponent";
 import AddOrderComponent from "./components/add_order/AddOrderComponent";
+
+import ClientsComponent from "./components/clients/ClientsComponent";
+import EditClientComponent from "./components/edit_client/EditClientComponent";
+
+import ProductsComponent from "./components/products/ProductsComponent";
+
+import EditProductComponent from "./components/edit_product/EditProductComponent";
+import AddProductComponent from "./components/add_product/AddProductComponent";
+
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -42,15 +55,26 @@ ReactDOM.render(
         <Router history={history}>
             <Switch>
                 <Route path='/login' component={AuthComponent}/>
+
                 <Route path='/homepage' component={HomePageComponent}/>
+
                 <Route path='/masters' component={MastersComponent}/>
                 <Route path='/add_master' component={AddMasterComponent}/>
                 <Route path='/edit_master' component={EditMasterComponent}/>
+
                 <Route path='/cities' component={CitiesComponent}/>
                 <Route path='/add_city' component={AddCityComponent}/>
                 <Route path='/edit_city' component={EditCityComponent}/>
+
                 <Route path='/orders' component={OrdersComponent}/>
                 <Route path='/add_order' component={AddOrderComponent}/>
+
+                <Route path='/clients' component={ClientsComponent}/>
+                <Route path='/edit_client' component={EditClientComponent}/>
+
+                <Route path='/products' component={ProductsComponent}/>
+                <Route path='/edit_product' component={EditProductComponent}/>
+                <Route path='/add_product' component={AddProductComponent}/>
             </Switch>
         </Router>
     </Provider>

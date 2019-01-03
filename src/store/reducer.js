@@ -6,6 +6,11 @@ import {ACTION_CITIES} from "./action/CITIES_ACTION";
 import {ADD_CITY_ACTION} from "./action/ADD_CITY_ACTION";
 import {ORDERS_ACTION} from "./action/ORDERS_ACTION";
 import {ADD_ORDER_ACTION} from "./action/ADD_ORDER_ACTION";
+import {CLIENTS_ACTION} from "./action/CLIENTS_ACTION";
+import {PRODUCTS_ACTION} from "./action/PRODUCTS_ACTION";
+import {EDIT_PRODUCT_ACTION} from "./action/EDIT_PRODUCT_ACTION";
+import {ADD_PRODUCT_ACTION} from "./action/ADD_PRODUCT_ACTION";
+import {EDIT_CLIENT_ACTION} from "./action/EDIT_CLIENT_ACTION";
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -359,6 +364,107 @@ export const reducer = (state = initialState, action) => {
                     masters: state.addOrderState.masters
                 }
             };
+        ////////////////////////////////CLIENTS///////////////////////////////////////////////
+        case CLIENTS_ACTION.ACTION_GET_CLIENTS:
+            return {
+                ...state, clientsState: {
+                    clients: action.payload
+                }
+            };
+        ////////////////////////////////PRODUCTS///////////////////////////////////////////////
+        case PRODUCTS_ACTION.ACTION_GET_PRODUCTS:
+            return {
+                ...state, productsState: {
+                    products: action.payload
+                }
+            };
+        ////////////////////////////////EDIT_PRODUCT///////////////////////////////////////////////
+        case EDIT_PRODUCT_ACTION.ACTION_WRITE_PRICE:
+            return {
+                ...state, editProductState: {
+                    size: state.editProductState.size,
+                    price: action.payload
+                }
+            };
+        case EDIT_PRODUCT_ACTION.ACTION_WRITE_SIZE:
+            return {
+                ...state, editProductState: {
+                    size: action.payload,
+                    price: state.editProductState.price
+                }
+            };
+        ////////////////////////////////ADD_PRODUCT///////////////////////////////////////////////
+        case ADD_PRODUCT_ACTION.ACTION_WRITE_PRICE:
+            return {
+                ...state, addProductState: {
+                    size: state.addProductState.size,
+                    price: action.payload
+                }
+            };
+        case ADD_PRODUCT_ACTION.ACTION_WRITE_SIZE:
+            return {
+                ...state, addProductState: {
+                    size: action.payload,
+                    price: state.addProductState.price
+                }
+            };
+        ////////////////////////////////EDIT_CLIENT////////////////////////////////////////////
+        case EDIT_CLIENT_ACTION.ACTION_ON_EDIT_CLIENT:
+            return {
+                ...state, editClientState: {
+                    cities: state.editClientState.cities,
+                    client: action.payload
+                }
+            };
+        case EDIT_CLIENT_ACTION.ACTION_GET_CITIES:
+            return {
+                ...state, editClientState: {
+                    cities: action.payload,
+                    client: {
+                        name: state.editClientState.client.name,
+                        email: state.editClientState.client.email,
+                        city_id: state.editClientState.client.city_id,
+                        id: state.editClientState.client.id
+                    }
+                }
+            };
+        case EDIT_CLIENT_ACTION.ACTION_WRITE_NAME:
+            return {
+                ...state, editClientState: {
+                    cities: state.editClientState.cities,
+                    client: {
+                        name: action.payload,
+                        email: state.editClientState.client.email,
+                        city_id: state.editClientState.client.city_id,
+                        id: state.editClientState.client.id
+                    }
+                }
+            };
+        case EDIT_CLIENT_ACTION.ACTION_WRITE_EMAIL:
+            return {
+                ...state, editClientState: {
+                    cities: state.editClientState.cities,
+                    client: {
+                        name: state.editClientState.client.name,
+                        email: action.payload,
+                        city_id: state.editClientState.client.city_id,
+                        id: state.editClientState.client.id
+                    }
+                }
+            };
+        case EDIT_CLIENT_ACTION.ACTION_CHOOSE_CITY:
+            return {
+                ...state, editClientState: {
+                    cities: state.editClientState.cities,
+                    client: {
+                        name: state.editClientState.client.name,
+                        email: state.editClientState.client.email,
+                        city_id: action.payload,
+                        id: state.editClientState.client.id
+                    }
+                }
+            };
+
 
     }
     return state;

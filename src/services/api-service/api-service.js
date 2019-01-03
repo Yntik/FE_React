@@ -95,7 +95,7 @@ export const apiService = {
     },
 
     getFreeMasters: ({size, city, datetime}) => {
-        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/free-master',{
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/free-master', {
             params: {
                 size: size,
                 city: city,
@@ -116,5 +116,44 @@ export const apiService = {
             master: master,
             datetime: datetime
         })
+    },
+
+    getClients: () => {
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/clients', {
+            headers: {
+                token: lsService.get()
+            }
+        })
+    },
+
+    editProduct: ({size, price, id}) => {
+
+        return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/product', {
+                token: lsService.get(),
+                id: id,
+                price: price,
+                size: size
+
+            }
+        )
+    },
+
+    addProduct: ({size, price}) => {
+        return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/product', {
+            token: lsService.get(),
+            size: size,
+            price: price
+        })
+    },
+
+    editClient: ({name, email, city_id, id}) => {
+        return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/clients', {
+                token: lsService.get(),
+                id: id,
+                name: name,
+                email: email,
+                city: city_id
+            }
+        )
     }
 };
