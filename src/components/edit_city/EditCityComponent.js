@@ -36,6 +36,9 @@ export class EditCityComponent extends React.Component {
                 console.log(res.data.data);
                 this.props.history.push(`/cities`)
             })
+            .catch(err => {
+                this.props.history.push(`/error`)
+            })
         event.preventDefault();
     }
 
@@ -51,7 +54,7 @@ export class EditCityComponent extends React.Component {
                 <div style={{width: 300}}>
                     <form onSubmit={this.onSubmit}>
                         <label className="col-form-label">Название города</label>
-                        <input className="form-control" type="text" placeholder="Название города"
+                        <input className="form-control" type="text" placeholder="Название города" required
                                value={this.state.name}
                                onChange={(event) => {
                                    console.log(event.target.value);

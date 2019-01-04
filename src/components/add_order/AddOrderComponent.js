@@ -27,7 +27,7 @@ function MastersList(props) {
         const list = (
             <div>
                 <label className="col-form-label">Дата и время заказа</label>
-                <select className="custom-select"
+                <select className="custom-select" required
                         onChange={(event) => {
                             for (let i in props.masters) {
                                 if (Number(props.masters[i].id) === Number(event.target.value)) {
@@ -77,14 +77,14 @@ class AddOrderComponent extends React.Component {
                 apiService.getCities()
                     .then(res => {
                         let cities = res.data.data;
-                        cities.unshift({city:"-Выберите город-", id: Infinity });
+                        cities.unshift({city: "-Выберите город-", id: Infinity});
                         console.log(res.data.data);
                         this.props.getCities(cities);
                     });
                 apiService.getProducts()
                     .then(res => {
                         let products = res.data.data;
-                        products.unshift({size:"-Выберете ", price:" / цену-", id: Infinity });
+                        products.unshift({size: "-Выберете ", price: " / цену-", id: Infinity});
                         console.log(res.data.data);
                         this.props.getProducts(products)
                     })
@@ -104,7 +104,10 @@ class AddOrderComponent extends React.Component {
             .then(res => {
                 console.log(res.data.data);
                 this.props.history.push(`/orders`)
-            });
+            })
+            .catch(err => {
+                this.props.history.push(`/error`)
+            })
         event.preventDefault();
     }
 
@@ -130,7 +133,9 @@ class AddOrderComponent extends React.Component {
                         console.log('flagggg', this.flag);
                         return;
                     }
-                    this.props.getMasters(res.data.data)
+                    let masters = res.data.data;
+                    masters.unshift({name: "-Выберите мастера-", id: Infinity});
+                    this.props.getMasters(masters)
                 })
         }
     }
@@ -144,21 +149,21 @@ class AddOrderComponent extends React.Component {
                 <div style={{width: 300}}>
                     <form onSubmit={this.onSubmit}>
                         <label className="col-form-label">Имя клиента</label>
-                        <input className="form-control" type="text" placeholder="Имя"
+                        <input className="form-control" type="text" placeholder="Имя" required
                                value={this.props.order.name}
                                onChange={(event) => {
                                    writeName(event.target.value);
                                }}
                         />
                         <label className="col-form-label">email</label>
-                        <input className="form-control" type="email" placeholder="example@mail.com"
+                        <input className="form-control" type="email" placeholder="example@mail.com" required
                                value={this.props.order.email}
                                onChange={(event) => {
                                    writeEmail(event.target.value);
                                }}
                         />
                         <label className="col-form-label">Размер и стоимость часов</label>
-                        <select className="custom-select"
+                        <select className="custom-select" required
                                 onChange={async (event) => {
                                     for (let i in this.props.products) {
                                         if (Number(this.props.products[i].id) === Number(event.target.value)) {
@@ -179,7 +184,7 @@ class AddOrderComponent extends React.Component {
                             })}
                         </select>
                         <label className="col-form-label">Город</label>
-                        <select className="custom-select"
+                        <select className="custom-select" required
                                 onChange={async (event) => {
                                     await chooseCity(event.target.value);
                                     this.onGetFreeMasters(1);
@@ -195,6 +200,7 @@ class AddOrderComponent extends React.Component {
                         </select>
                         <label className="col-form-label">Дата и время заказа</label>
                         <input className="form-control" type="datetime-local" min="00:00" max="23:00" step="3600"
+                               required
                                onChange={async (event) => {
                                    await chooseDatetime(event.target.value);
                                    this.onGetFreeMasters(2);
@@ -206,7 +212,7 @@ class AddOrderComponent extends React.Component {
 
                         />
                         <p></p>
-                        <button  type="submit" className="btn btn-success">Добавить в список мастера</button>
+                        <button type="submit" className="btn btn-success">Добавить в список мастера</button>
                     </form>
 
                 </div>

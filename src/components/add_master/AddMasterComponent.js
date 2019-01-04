@@ -20,8 +20,10 @@ class AddMasterComponent extends React.Component {
                 apiService.getCities()
                     .then(res => {
                         console.log(res.data.data)
-                        this.props.getCities(res.data.data);
-                        this.props.chooseCity(res.data.data[0].id);
+                        let cities = res.data.data;
+                        cities.unshift({city:"-Выберите город-", id: Infinity });
+                        console.log(res.data.data);
+                        this.props.getCities(cities);
                     })
             })
             .catch(err => {
@@ -39,6 +41,9 @@ class AddMasterComponent extends React.Component {
                 console.log(res.data.data);
                 this.props.history.push(`/masters`)
             })
+            .catch(err => {
+                this.props.history.push(`/error`)
+            })
         event.preventDefault();
     }
 
@@ -55,28 +60,29 @@ class AddMasterComponent extends React.Component {
                 <div style={{width: 300}}>
                     <form onSubmit={this.onSubmit}>
                         <label className="col-form-label">Имя</label>
-                        <input className="form-control" type="text" placeholder="Имя"
+                        <input className="form-control" type="text" placeholder="Имя" required
                                value={this.props.master.name}
                                onChange={(event) => {
                                    writeName(event.target.value);
                                }}
                         />
                         <label className="col-form-label">Фамилия</label>
-                        <input className="form-control" type="text" placeholder="Фамилия"
+                        <input className="form-control" type="text" placeholder="Фамилия" required
                                value={this.props.master.surname}
                                onChange={(event) => {
                                    writeSurname(event.target.value);
                                }}
                         />
                         <label className="col-form-label">Рейтинг</label>
-                        <input className="form-control" type="number" min="0" max="5"
+                        <input className="form-control" type="number" min="0" max="5" required
                                value={this.props.master.rating}
                                onChange={(event) => {
                                    chooseRating(event.target.value);
                                }}
                         />
                         <label className="col-form-label">Город</label>
-                        <select className="custom-select"
+                        <select className="custom-select" required
+                                value={Infinity}
                                 onChange={(event) => {
                                     chooseCity(event.target.value);
                                 }}

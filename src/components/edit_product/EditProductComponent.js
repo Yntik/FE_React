@@ -53,14 +53,14 @@ class EditProductComponent extends React.Component {
                 <div style={{width: 300}}>
                     <form onSubmit={this.onSubmit}>
                         <label className="col-form-label">Действующий размер</label>
-                        <input className="form-control" type="text" placeholder="Размер"
+                        <input className="form-control" type="text" placeholder="Размер" required
                                value={this.props.size}
                                onChange={(event) => {
                                    writeSize(event.target.value);
                                }}
                         />
                         <label className="col-form-label">Действующая цена</label>
-                        <input className="form-control" type="text" placeholder="Цена"
+                        <input className="form-control" type="text" placeholder="Цена" required
                                value={this.props.price}
                                onChange={(event) => {
                                    writePrice(event.target.value);

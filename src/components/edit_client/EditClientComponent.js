@@ -23,20 +23,8 @@ class EditClientComponent extends React.Component {
                 console.log('success');
                 apiService.getCities()
                     .then(res => {
-                        let cities = [];
-                        console.log(res.data.data)
-                        for (let i in res.data.data) {
-                            if (Number(res.data.data[i].id) === Number(client.idcity)) {
-                                cities.unshift(res.data.data[i]);
-                                this.setState({
-                                    city: res.data.data[i].city
-                                })
-                                continue;
-                            }
-                            cities.push(res.data.data[i])
-                        }
-                        console.log(cities);
-                        this.props.getCities(cities);
+
+                        this.props.getCities(res.data.data);
                     })
             })
             .catch(err => {
@@ -52,6 +40,9 @@ class EditClientComponent extends React.Component {
             .then(res => {
                 console.log(res.data.data);
                 this.props.history.push(`/clients`)
+            })
+            .catch(err => {
+                this.props.history.push(`/error`)
             })
         event.preventDefault();
     }
@@ -69,21 +60,22 @@ class EditClientComponent extends React.Component {
                 <div style={{width: 300}}>
                     <form onSubmit={this.onSubmit}>
                         <label className="col-form-label">Имя</label>
-                        <input className="form-control" type="text" placeholder="Имя"
+                        <input className="form-control" type="text" placeholder="Имя" required
                                value={this.props.client.name}
                                onChange={(event) => {
                                    writeName(event.target.value);
                                }}
                         />
                         <label className="col-form-label">Электронный адрес</label>
-                        <input className="form-control" type="email" placeholder="example@mail.com"
+                        <input className="form-control" type="email" placeholder="example@mail.com" required
                                value={this.props.client.email}
                                onChange={(event) => {
                                    writeEmail(event.target.value);
                                }}
                         />
                         <label className="col-form-label">Текущий город {this.state.city}</label>
-                        <select className="custom-select"
+                        <select className="custom-select" required
+                                value={this.props.client.city_id}
                                 onChange={(event) => {
                                     chooseCity(event.target.value);
                                 }}

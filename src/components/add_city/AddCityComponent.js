@@ -25,11 +25,12 @@ class AddCityComponent extends React.Component {
     }
 
     onSubmit(event) {
-        console.log('new city = ', this.props.city.name);
         apiService.addCity({name: this.props.city.name})
             .then(res => {
-                console.log(res.data.data);
                 this.props.history.push(`/cities`)
+            })
+            .catch(err => {
+                this.props.history.push(`/error`)
             })
         event.preventDefault();
     }
@@ -47,7 +48,7 @@ class AddCityComponent extends React.Component {
                 <div style={{width: 300}}>
                     <form onSubmit={this.onSubmit}>
                         <label className="col-form-label">Название нового города</label>
-                        <input className="form-control" type="text" placeholder="Название нового города"
+                        <input className="form-control" type="text" placeholder="Название нового города" required
                                value={this.props.city.name}
                                onChange={(event) => {
                                    writeName(event.target.value);

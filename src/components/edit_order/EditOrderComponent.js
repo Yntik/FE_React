@@ -91,7 +91,10 @@ class EditOrderComponent extends React.Component {
             .then(res => {
                 console.log();
                 this.props.history.push(`/orders`)
-            });
+            })
+            .catch(err => {
+                this.props.history.push(`/error`)
+            })
         event.preventDefault();
     }
 
@@ -124,7 +127,7 @@ class EditOrderComponent extends React.Component {
     }
 
     render() {
-        const {writeClient, writeEmail, chooseCity, choosePrice, chooseSize,chooseDatetime, chooseProduct, chooseMaster} = this.props;
+        const {writeClient, writeEmail, chooseCity, choosePrice, chooseSize, chooseDatetime, chooseProduct, chooseMaster} = this.props;
         return <div className="container">
             <div className="jumbotron">
                 <h1>Форма редактирования заказа</h1>
@@ -204,7 +207,7 @@ class EditOrderComponent extends React.Component {
                         <select className="custom-select" required
                                 value={this.props.order.master_id}
                                 onChange={(event) => {
-                                     chooseMaster(event.target.value);
+                                    chooseMaster(event.target.value);
                                 }}
                         >
                             {this.props.masters.map((master) => {

@@ -20,10 +20,11 @@ import {ADD_PRODUCT_ACTION} from "./action/ADD_PRODUCT_ACTION";
 
 
 export const reducer = (state = initialState, action) => {
+    var copy ;
     switch (action.type) {
         ////////////////////////////////MASTERS///////////////////////////////////////////////
         case MASTERS_ACTION.ACTION_GET_MASTERS:
-            const  copy = {...state.mastersState} ;
+            copy = {...state.mastersState} ;
             copy.masters = action.payload;
             return {
                 ...state, mastersState: copy

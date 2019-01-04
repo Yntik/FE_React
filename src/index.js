@@ -8,6 +8,8 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {logger} from 'redux-logger';
 
+import {lsService} from "./services/LS-service/ls-service";
+
 import createHistory from 'history/createBrowserHistory';
 import {Router, Route, Switch} from 'react-router';
 import {Link} from 'react-router-dom';
@@ -39,10 +41,14 @@ import ProductsComponent from "./components/products/ProductsComponent";
 import EditProductComponent from "./components/edit_product/EditProductComponent";
 import AddProductComponent from "./components/add_product/AddProductComponent";
 import EditOrderComponent from "./components/edit_order/EditOrderComponent";
+import ErrorComponent from "./components/errer/ErrerComponent";
 
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
+
+let flag = false;
+
 
 
 console.log('history', history);
@@ -50,14 +56,17 @@ console.log('history', history);
 export const store = createStore(reducer);
 
 
+
 ReactDOM.render(
     <Provider store={store}>
-        <HeaderComponent history={history}/>
-        <Router history={history}>
+        <HeaderComponent history={history} />
+        <Router history={history} >
             <Switch>
                 <Route path='/login' component={AuthComponent}/>
 
                 <Route path='/homepage' component={HomePageComponent}/>
+
+                <Route path='/error' component={ErrorComponent}/>
 
                 <Route path='/masters' component={MastersComponent}/>
                 <Route path='/add_master' component={AddMasterComponent}/>

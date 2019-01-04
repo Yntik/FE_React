@@ -23,6 +23,7 @@ class HomePageComponent extends React.Component {
         super(props);
         apiService.checkToken()
             .then(res => {
+                console.log(this.props) ;
                 console.log('success');
             })
             .catch(err => {

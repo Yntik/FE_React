@@ -29,7 +29,10 @@ class AddProductComponent extends React.Component {
             .then(res => {
                 console.log(res.data.data);
                 this.props.history.push(`/products`)
-            });
+            })
+            .catch(err => {
+                this.props.history.push(`/error`)
+            })
         event.preventDefault();
     }
 
@@ -46,14 +49,14 @@ class AddProductComponent extends React.Component {
                 <div style={{width: 300}}>
                     <form onSubmit={this.onSubmit}>
                         <label className="col-form-label">Размер</label>
-                        <input className="form-control" type="number" placeholder="Размер"
+                        <input className="form-control" type="number" placeholder="Размер" required
                                value={this.props.size}
                                onChange={(event) => {
                                    writeSize(event.target.value);
                                }}
                         />
                         <label className="col-form-label">Цена</label>
-                        <input className="form-control" type="number" placeholder="Цена"
+                        <input className="form-control" type="number" placeholder="Цена" required
                                value={this.props.price}
                                onChange={(event) => {
                                    writePrice(event.target.value);
