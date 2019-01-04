@@ -7,6 +7,7 @@ import {addCityState} from "./addCityState";
 
 import {ordersState} from "./ordersState";
 import {addOrderState} from "./addOrderState";
+import {editOrderState} from "./editOrderState";
 
 import {clientsState} from "./clientsState";
 import {editClientState} from "./editClientState";
@@ -20,13 +21,19 @@ export const initialState = {
     mastersState: mastersState,
     addMasterState: addMasterState,
     editMasterState: editMasterState,
+
     citiesState: citiesState,
     addCityState: addCityState,
+
     ordersState: ordersState,
     addOrderState: addOrderState,
+    editOrderState: editOrderState,
+
     clientsState: clientsState,
+    editClientState: editClientState,
+
     productsState: productsState,
     editProductState: editProductState,
-    addProductState: addProductState,
-    editClientState: editClientState
+    addProductState: addProductState
+
 };

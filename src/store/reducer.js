@@ -1,16 +1,23 @@
 import {initialState} from "./initialState/initialState";
+
 import {MASTERS_ACTION} from "./action/MASTERS_ACTION";
 import {ADD_MASTER_ACTION} from "./action/ADD_MASTER_ACTION";
 import {EDIT_MASTER_ACTION} from "./action/EDIT_MASTER_ACTION";
+
 import {ACTION_CITIES} from "./action/CITIES_ACTION";
 import {ADD_CITY_ACTION} from "./action/ADD_CITY_ACTION";
+
 import {ORDERS_ACTION} from "./action/ORDERS_ACTION";
 import {ADD_ORDER_ACTION} from "./action/ADD_ORDER_ACTION";
+import {EDIT_ORDER_ACTION} from "./action/EDIT_ORDER_ACTION";
+
 import {CLIENTS_ACTION} from "./action/CLIENTS_ACTION";
+import {EDIT_CLIENT_ACTION} from "./action/EDIT_CLIENT_ACTION";
+
 import {PRODUCTS_ACTION} from "./action/PRODUCTS_ACTION";
 import {EDIT_PRODUCT_ACTION} from "./action/EDIT_PRODUCT_ACTION";
 import {ADD_PRODUCT_ACTION} from "./action/ADD_PRODUCT_ACTION";
-import {EDIT_CLIENT_ACTION} from "./action/EDIT_CLIENT_ACTION";
+
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -464,7 +471,227 @@ export const reducer = (state = initialState, action) => {
                     }
                 }
             };
+        ////////////////////////////////EDIT_ORDERS///////////////////////////////////////////////
+        case EDIT_ORDER_ACTION.ACTION_ON_EDIT_ORDER:
 
+            return {
+                ...state, editOrderState: {
+                    order: action.payload,
+                    cities: state.editOrderState.cities,
+                    products: state.editOrderState.products,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_GET_CITIES:
+
+            return {
+                ...state, editOrderState: {
+                    order: state.editOrderState.order,
+                    cities: action.payload,
+                    products: state.editOrderState.products,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_GET_PRODUCTS:
+
+            return {
+                ...state, editOrderState: {
+                    order: state.editOrderState.order,
+                    cities: state.editOrderState.cities,
+                    products: action.payload,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_GET_MASTERS:
+
+            return {
+                ...state, editOrderState: {
+                    order: state.editOrderState.order,
+                    cities: state.editOrderState.cities,
+                    products: state.editOrderState.products,
+                    masters: action.payload
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_WRITE_CLIENT:
+
+            return {
+                ...state, editOrderState: {
+                    order: {
+                        id: state.editOrderState.order.id,
+                        client: action.payload,
+                        email: state.editOrderState.order.email,
+                        price: state.editOrderState.order.price,
+                        size: state.editOrderState.order.size,
+                        datetime: state.editOrderState.order.datetime,
+                        city_id: state.editOrderState.order.city_id,
+                        master_id: state.editOrderState.order.master_id,
+                        client_id: state.editOrderState.order.client_id,
+                        product_id: state.editOrderState.order.product_id
+                    },
+                    products: state.editOrderState.products,
+                    cities: state.editOrderState.cities,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_WRITE_EMAIL:
+
+            return {
+                ...state, editOrderState: {
+                    order: {
+                        id: state.editOrderState.order.id,
+                        client: state.editOrderState.order.client,
+                        email: action.payload,
+                        price: state.editOrderState.order.price,
+                        size: state.editOrderState.order.size,
+                        datetime: state.editOrderState.order.datetime,
+                        city_id: state.editOrderState.order.city_id,
+                        master_id: state.editOrderState.order.master_id,
+                        client_id: state.editOrderState.order.client_id,
+                        product_id: state.editOrderState.order.product_id
+                    },
+                    products: state.editOrderState.products,
+                    cities: state.editOrderState.cities,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_CHOOSE_PRICE:
+
+            return {
+                ...state, editOrderState: {
+                    order: {
+                        id: state.editOrderState.order.id,
+                        client: state.editOrderState.order.client,
+                        email: state.editOrderState.order.email,
+                        price: action.payload,
+                        size: state.editOrderState.order.size,
+                        datetime: state.editOrderState.order.datetime,
+                        city_id: state.editOrderState.order.city_id,
+                        master_id: state.editOrderState.order.master_id,
+                        client_id: state.editOrderState.order.client_id,
+                        product_id: state.editOrderState.order.product_id
+                    },
+                    products: state.editOrderState.products,
+                    cities: state.editOrderState.cities,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_CHOOSE_SIZE:
+
+            return {
+                ...state, editOrderState: {
+                    order: {
+                        id: state.editOrderState.order.id,
+                        client: state.editOrderState.order.client,
+                        email: state.editOrderState.order.email,
+                        price: state.editOrderState.order.price,
+                        size: action.payload,
+                        datetime: state.editOrderState.order.datetime,
+                        city_id: state.editOrderState.order.city_id,
+                        master_id: state.editOrderState.order.master_id,
+                        client_id: state.editOrderState.order.client_id,
+                        product_id: state.editOrderState.order.product_id
+                    },
+                    products: state.editOrderState.products,
+                    cities: state.editOrderState.cities,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_CHOOSE_DATETIME:
+
+            return {
+                ...state, editOrderState: {
+                    order: {
+                        id: state.editOrderState.order.id,
+                        client: state.editOrderState.order.client,
+                        email: state.editOrderState.order.email,
+                        price: state.editOrderState.order.price,
+                        size: state.editOrderState.order.size,
+                        datetime: action.payload,
+                        city_id: state.editOrderState.order.city_id,
+                        master_id: state.editOrderState.order.master_id,
+                        client_id: state.editOrderState.order.client_id,
+                        product_id: state.editOrderState.order.product_id
+                    },
+                    products: state.editOrderState.products,
+                    cities: state.editOrderState.cities,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_CHOOSE_CITY_ID:
+
+            return {
+                ...state, editOrderState: {
+                    order: {
+                        id: state.editOrderState.order.id,
+                        client: state.editOrderState.order.client,
+                        email: state.editOrderState.order.email,
+                        price: state.editOrderState.order.price,
+                        size: state.editOrderState.order.size,
+                        datetime: state.editOrderState.order.datetime,
+                        city_id: action.payload,
+                        master_id: state.editOrderState.order.master_id,
+                        client_id: state.editOrderState.order.client_id,
+                        product_id: state.editOrderState.order.product_id
+                    },
+                    products: state.editOrderState.products,
+                    cities: state.editOrderState.cities,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_CHOOSE_MASTER_ID:
+
+            return {
+                ...state, editOrderState: {
+                    order: {
+                        id: state.editOrderState.order.id,
+                        client: state.editOrderState.order.client,
+                        email: state.editOrderState.order.email,
+                        price: state.editOrderState.order.price,
+                        size: state.editOrderState.order.size,
+                        datetime: state.editOrderState.order.datetime,
+                        city_id: state.editOrderState.order.city_id,
+                        master_id: action.payload,
+                        client_id: state.editOrderState.order.client_id,
+                        product_id: state.editOrderState.order.product_id
+                    },
+                    products: state.editOrderState.products,
+                    cities: state.editOrderState.cities,
+                    masters: state.editOrderState.masters
+
+                }
+            };
+        case EDIT_ORDER_ACTION.ACTION_CHOOSE_PRODUCT_ID:
+
+            return {
+                ...state, editOrderState: {
+                    order: {
+                        id: state.editOrderState.order.id,
+                        client: state.editOrderState.order.client,
+                        email: state.editOrderState.order.email,
+                        price: state.editOrderState.order.price,
+                        size: state.editOrderState.order.size,
+                        datetime: state.editOrderState.order.datetime,
+                        city_id: state.editOrderState.order.city_id,
+                        master_id: state.editOrderState.order.master_id,
+                        client_id: state.editOrderState.order.client_id,
+                        product_id: action.payload
+                    },
+                    products: state.editOrderState.products,
+                    cities: state.editOrderState.cities,
+                    masters: state.editOrderState.masters
+
+                }
+            };
 
     }
     return state;

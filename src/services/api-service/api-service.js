@@ -94,13 +94,14 @@ export const apiService = {
         return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/product')
     },
 
-    getFreeMasters: ({size, city, datetime}) => {
+    getFreeMasters: ({option, size, city, datetime}) => {
+        console.log('getFreeMasters tic-tic');
         return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/free-master', {
             params: {
                 size: size,
                 city: city,
                 datetime: datetime,
-                option: 'new'
+                option: option
             }
         })
     },
@@ -153,6 +154,37 @@ export const apiService = {
                 name: name,
                 email: email,
                 city: city_id
+            }
+        )
+    },
+
+    deleteOrder: ({id, paypal_id, route}) => {
+        return axios.delete(apiConfig.ROUTER_OPTIONS.Back_End_Url + `/protected/${route}`, {
+            params: {
+                id: id,
+                paypal_id: paypal_id,
+                route: route
+            },
+            headers: {
+                token: lsService.get()
+            }
+        })
+    },
+
+    editOrder: ({order}) => {
+        console.log('in edit order');
+        return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/orders', {
+                token: lsService.get(),
+                id: order.id,
+                client: order.client,
+                email: order.email,
+                size: order.size,
+                price: String(order.price),
+                city: order.city_id,
+                idmaster: order.master_id,
+                datetime: order.datetime,
+                idclient: order.client_id,
+                idproduct: order.product_id
             }
         )
     }

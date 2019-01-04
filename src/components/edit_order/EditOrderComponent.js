@@ -1,62 +1,36 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
-import styles from '../styles.css'
 import {bindActionCreators} from 'redux'
+import queryString from 'query-string'
 
 import {apiService} from "../../services/api-service/api-service";
 
 import {
-    writeName,
+    writeClient,
     writeEmail,
+    choosePrice,
+    chooseSize,
+    chooseDatetime,
     chooseCity,
     chooseProduct,
-    getCities,
-    chooseDatetime,
     chooseMaster,
     getMasters,
     getProducts,
-    chooseSize
-} from '../../store/action/addOrderAction'
+    onEditOrder,
+    getCities
+} from '../../store/action/editOrderAction'
+import moment from "moment/moment";
 
-
-function MastersList(props) {
-    console.log(props);
-    if (props.visibility) {
-
-        const list = (
-            <div>
-                <label className="col-form-label">Дата и время заказа</label>
-                <select className="custom-select"
-                        onChange={(event) => {
-                            for (let i in props.masters) {
-                                if (Number(props.masters[i].id) === Number(event.target.value)) {
-                                    props.chooseMaster(props.masters[i]);
-                                    break;
-                                }
-                            }
-                        }}
-                >
-                    {props.masters.map((master) => {
-                        return (
-                            <option key={master.id} value={master.id} className="table-info">
-                                {master.name} {master.surname} Рейтинг {master.rating}
-                            </option>
-                        );
-                    })}
-                </select>
-            </div>
-        );
-        return list
-    }
-    else if (props.flag) {
+function Message(props) {
+    if (props.flag) {
         const message = (
             <h6 className="text-danger">
                 Свободных мастеров нет <br/>
                 Выберите другие параметры(Дата, время)
             </h6>
         )
-        return message;
+        return message
     }
     else {
         return <div></div>
@@ -64,29 +38,41 @@ function MastersList(props) {
 }
 
 
-class AddOrderComponent extends React.Component {
+class EditOrderComponent extends React.Component {
 
-    inputControl = [0, 0, 0];
+    inputControl = [1, 1, 1];
     flag = false;
 
     constructor(props) {
         super(props);
+        const order = queryString.parse(this.props.location.search);
+        this.props.onEditOrder(order);
+        this.state = {
+            city: '',
+            size: ''
+        }
+        console.log(order);
         apiService.checkToken()
             .then(res => {
                 console.log('success');
                 apiService.getCities()
                     .then(res => {
-                        let cities = res.data.data;
-                        cities.unshift({city:"-Выберите город-", id: Infinity });
-                        console.log(res.data.data);
-                        this.props.getCities(cities);
+                        this.props.getCities(res.data.data);
                     });
                 apiService.getProducts()
                     .then(res => {
-                        let products = res.data.data;
-                        products.unshift({size:"-Выберете ", price:" / цену-", id: Infinity });
-                        console.log(res.data.data);
-                        this.props.getProducts(products)
+                        this.props.getProducts(res.data.data);
+
+                    })
+                apiService.getFreeMasters({
+                    option: order.id,
+                    size: order.size,
+                    datetime: order.datetime,
+                    city: order.city_id
+                })
+                    .then(res => {
+                        console.log(res.data.data)
+                        this.props.getMasters(res.data.data);
                     })
             })
             .catch(err => {
@@ -100,9 +86,10 @@ class AddOrderComponent extends React.Component {
     }
 
     onSubmit(event) {
-        apiService.addOrder(this.props.order)
+        console.log('out edit order', this.props.order);
+        apiService.editOrder({order: this.props.order})
             .then(res => {
-                console.log(res.data.data);
+                console.log();
                 this.props.history.push(`/orders`)
             });
         event.preventDefault();
@@ -117,10 +104,10 @@ class AddOrderComponent extends React.Component {
         console.log(this.inputControl);
         if (this.inputControl[0] && this.inputControl[1] && this.inputControl[2]) {
             apiService.getFreeMasters({
+                option: this.props.order.id,
                 size: this.props.order.size,
                 datetime: this.props.order.datetime,
-                city: this.props.order.city,
-                option: 'new'
+                city: this.props.order.city_id
             })
                 .then(res => {
                     console.log('length', res.data.data.length);
@@ -130,35 +117,37 @@ class AddOrderComponent extends React.Component {
                         console.log('flagggg', this.flag);
                         return;
                     }
+                    this.flag = false;
                     this.props.getMasters(res.data.data)
                 })
         }
     }
 
     render() {
-        const {writeName, writeEmail, chooseCity, chooseProduct, chooseDatetime} = this.props;
+        const {writeClient, writeEmail, chooseCity, choosePrice, chooseSize,chooseDatetime, chooseProduct, chooseMaster} = this.props;
         return <div className="container">
             <div className="jumbotron">
-                <h1>Форма добавления заказа</h1>
+                <h1>Форма редактирования заказа</h1>
                 <button type="button" className="btn btn-success" onClick={this.onBackToList}>Назад к списку</button>
                 <div style={{width: 300}}>
                     <form onSubmit={this.onSubmit}>
                         <label className="col-form-label">Имя клиента</label>
-                        <input className="form-control" type="text" placeholder="Имя"
-                               value={this.props.order.name}
+                        <input className="form-control" type="text" placeholder="Имя" required
+                               value={this.props.order.client}
                                onChange={(event) => {
-                                   writeName(event.target.value);
+                                   writeClient(event.target.value);
                                }}
                         />
                         <label className="col-form-label">email</label>
-                        <input className="form-control" type="email" placeholder="example@mail.com"
+                        <input className="form-control" type="email" placeholder="example@mail.com" required
                                value={this.props.order.email}
                                onChange={(event) => {
                                    writeEmail(event.target.value);
                                }}
                         />
-                        <label className="col-form-label">Размер и стоимость часов</label>
-                        <select className="custom-select"
+                        <label className="col-form-label">Размер часов</label>
+                        <select className="custom-select" required
+                                value={this.props.order.product_id}
                                 onChange={async (event) => {
                                     for (let i in this.props.products) {
                                         if (Number(this.props.products[i].id) === Number(event.target.value)) {
@@ -173,13 +162,21 @@ class AddOrderComponent extends React.Component {
                             {this.props.products.map((product) => {
                                 return (
                                     <option key={product.id} value={product.id} className="table-info">
-                                        {product.size} размер {product.price} грн
+                                        {product.size} размер
                                     </option>
                                 );
                             })}
                         </select>
+                        <label className="col-form-label">Стоимость</label>
+                        <input className="form-control" type="number" placeholder="Имя" required
+                               value={this.props.order.price}
+                               onChange={(event) => {
+                                   choosePrice(event.target.value);
+                               }}
+                        />
                         <label className="col-form-label">Город</label>
-                        <select className="custom-select"
+                        <select className="custom-select" required
+                                value={this.props.order.city_id}
                                 onChange={async (event) => {
                                     await chooseCity(event.target.value);
                                     this.onGetFreeMasters(1);
@@ -193,20 +190,34 @@ class AddOrderComponent extends React.Component {
                                 );
                             })}
                         </select>
-                        <label className="col-form-label">Дата и время заказа</label>
+                        <label className="col-form-label">Действубщая дата и время
+                            заказа {moment(this.props.order.datetime).format('MMMM Do YYYY, h:mm:ss a')}</label>
                         <input className="form-control" type="datetime-local" min="00:00" max="23:00" step="3600"
+                               value={this.props.order.datetime}
                                onChange={async (event) => {
                                    await chooseDatetime(event.target.value);
                                    this.onGetFreeMasters(2);
 
                                }}
                         />
-                        <MastersList flag={this.flag} visibility={this.props.masters.length}
-                                     chooseMaster={this.props.chooseMaster} masters={this.props.masters}
-
-                        />
                         <p></p>
-                        <button  type="submit" className="btn btn-success">Добавить в список мастера</button>
+                        <select className="custom-select" required
+                                value={this.props.order.master_id}
+                                onChange={(event) => {
+                                     chooseMaster(event.target.value);
+                                }}
+                        >
+                            {this.props.masters.map((master) => {
+                                return (
+                                    <option key={master.id} value={master.id} className="table-info">
+                                        {master.name} {master.surname} рейтинг {master.rating}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                        <Message flag={this.flag}/>
+                        <p></p>
+                        <button type="submit" className="btn btn-success">Изменить заказ</button>
                     </form>
 
                 </div>
@@ -216,22 +227,24 @@ class AddOrderComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return state.addOrderState
+    return state.editOrderState
 };
 
 const mapActionToProps = (dispatch) => {
     return {
-        writeName: bindActionCreators(writeName, dispatch),
+        writeClient: bindActionCreators(writeClient, dispatch),
         writeEmail: bindActionCreators(writeEmail, dispatch),
+        choosePrice: bindActionCreators(choosePrice, dispatch),
+        chooseSize: bindActionCreators(chooseSize, dispatch),
+        chooseDatetime: bindActionCreators(chooseDatetime, dispatch),
         chooseCity: bindActionCreators(chooseCity, dispatch),
         chooseProduct: bindActionCreators(chooseProduct, dispatch),
-        getCities: bindActionCreators(getCities, dispatch),
-        chooseDatetime: bindActionCreators(chooseDatetime, dispatch),
         chooseMaster: bindActionCreators(chooseMaster, dispatch),
         getMasters: bindActionCreators(getMasters, dispatch),
         getProducts: bindActionCreators(getProducts, dispatch),
-        chooseSize: bindActionCreators(chooseSize, dispatch)
+        getCities: bindActionCreators(getCities, dispatch),
+        onEditOrder: bindActionCreators(onEditOrder, dispatch)
     };
 };
 
-export default connect(mapStateToProps, mapActionToProps)(AddOrderComponent);
+export default connect(mapStateToProps, mapActionToProps)(EditOrderComponent);

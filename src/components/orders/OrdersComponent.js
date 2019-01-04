@@ -22,10 +22,10 @@ class OrdersComponent extends React.Component {
             .catch(err => {
                 this.props.history.push(`/login`)
             })
-        this.onAddOrder = this.onAddOrder.bind(this);
+        this.onAdd = this.onAdd.bind(this);
     }
 
-    onAddOrder(event) {
+    onAdd(event) {
         console.log(event)
         this.props.history.push(`/add_order`);
     }
@@ -33,16 +33,15 @@ class OrdersComponent extends React.Component {
 
     render() {
 
-        const onEditMaster = (master) => {
+        const onEdit = (order) => {
             this.props.history.push({
-                pathname: '/edit_master',
-                search: `?id=${master.id}&name=${master.name}&surname=${master.surname}&rating=${master.rating}&city=${master.idcity}`,
+                pathname: '/edit_order',
+                search: `?id=${order.id}&client=${order.client}&email=${order.email}&price=${order.price}&size=${order.size}&city_id=${order.idcity}&product_id=${order.idproduct}&master_id=${order.idmaster}&client_id=${order.idclient}&datetime=${order.start}`,
             })
         }
-        const onDeleteMaster = (master) => {
-            console.log('egp')
-            apiService.delete({id: master.id, route: 'masters'})
-            apiService.getMasters()
+        const onDelete = async (order) => {
+            await apiService.deleteOrder({id: order.id,paypal_id: order.idpaypal, route: 'orders'})
+            apiService.getOrders()
                 .then(res => {
                     this.props.dispatch(getOrders(res.data.data));
                 })
@@ -51,7 +50,7 @@ class OrdersComponent extends React.Component {
             <div className="jumbotron">
                 <h1>Список заказов</h1>
                 <p>Количество заказов {this.props.orders.length}</p>
-                <button type="button" className="btn btn-success" onClick={this.onAddOrder}>Добавить заказ</button>
+                <button type="button" className="btn btn-success" onClick={this.onAdd}>Добавить заказ</button>
                 <table className="table table-hover">
                     <thead>
                     <tr>
@@ -85,14 +84,14 @@ class OrdersComponent extends React.Component {
                                     type="button"
                                     value="Редактировать"
                                     onClick={(event) => {
-                                        onEditMaster(order)
+                                        onEdit(order)
                                     }}/></td>
                                 <td><input
                                     type="button"
                                     value="Удалить"
                                     onClick={(event) => {
                                         if (window.confirm('Вы действительно хотите удалить запись?')) {
-                                            onDeleteMaster(order)
+                                            onDelete(order)
                                         }
                                     }}/></td>
                             </tr>

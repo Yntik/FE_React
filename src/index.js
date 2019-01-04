@@ -38,6 +38,7 @@ import ProductsComponent from "./components/products/ProductsComponent";
 
 import EditProductComponent from "./components/edit_product/EditProductComponent";
 import AddProductComponent from "./components/add_product/AddProductComponent";
+import EditOrderComponent from "./components/edit_order/EditOrderComponent";
 
 
 const history = createHistory();
@@ -68,6 +69,7 @@ ReactDOM.render(
 
                 <Route path='/orders' component={OrdersComponent}/>
                 <Route path='/add_order' component={AddOrderComponent}/>
+                <Route path='/edit_order' component={EditOrderComponent}/>
 
                 <Route path='/clients' component={ClientsComponent}/>
                 <Route path='/edit_client' component={EditClientComponent}/>
