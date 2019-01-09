@@ -1,30 +1,21 @@
 import {Md5} from 'ts-md5/dist/md5';
 import axios from 'axios';
 import {apiConfig} from './api-config'
-
+import Auth from '../Auth0/Auth'
 import {lsService} from '../LS-service/ls-service'
 
+const auth = new Auth();
+
+
 export const apiService = {
-    authentication: ({login, password}) => {
-        return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/login', {
-            username: login,
-            password: Md5.hashStr(password)
-        })
-    },
     checkToken: () => {
-        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/checktoken', {
-            headers: {
-                token: lsService.get()
-            }
-        })
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/checktoken',{ headers})
     },
 
     getMasters: () => {
-        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/masters', {
-            headers: {
-                token: lsService.get()
-            }
-        })
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/masters',{ headers})
     },
 
     getCities: () => {
@@ -32,62 +23,55 @@ export const apiService = {
     },
 
     addMaster: ({name, surname, rating, city}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/masters', {
-            token: lsService.get(),
             name: name,
             surname: surname,
             rating: rating,
             city: city
-        })
+        }, { headers })
     },
 
     editMaster: ({name, surname, rating, city, id}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/masters', {
-                token: lsService.get(),
                 id: id,
                 name: name,
                 surname: surname,
                 rating: rating,
                 city: city
-            }
-        )
+            }, { headers })
     },
 
     delete: ({id, route}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.delete(apiConfig.ROUTER_OPTIONS.Back_End_Url + `/protected/${route}`, {
             params: {
                 id: id,
                 route: route
             },
-            headers: {
-                token: lsService.get()
-            }
+            headers: headers
         })
     },
 
     addCity: ({name}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/cities', {
-            token: lsService.get(),
             newcity: name,
-        })
+        },{ headers })
     },
 
     editCity: ({name, id}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/cities', {
-                token: lsService.get(),
                 id: id,
                 newcity: name,
-
-            }
-        )
+            }, { headers })
     },
 
     getOrders: () => {
-        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/orders', {
-            headers: {
-                token: lsService.get()
-            }
-        })
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/orders', { headers })
     },
 
     getProducts: () => {
@@ -107,8 +91,8 @@ export const apiService = {
     },
 
     addOrder: ({name, email, city, product, size, master, datetime}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/orders', {
-            token: lsService.get(),
             client: name,
             email: email,
             size: size,
@@ -116,65 +100,58 @@ export const apiService = {
             city: city,
             master: master,
             datetime: datetime
-        })
+        },{ headers })
     },
 
     getClients: () => {
-        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/clients', {
-            headers: {
-                token: lsService.get()
-            }
-        })
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
+        return axios.get(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/clients', { headers })
     },
 
     editProduct: ({size, price, id}) => {
-
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/product', {
-                token: lsService.get(),
                 id: id,
                 price: price,
                 size: size
 
-            }
-        )
+            }, { headers })
     },
 
     addProduct: ({size, price}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.post(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/product', {
-            token: lsService.get(),
             size: size,
             price: price
-        })
+        }, { headers })
     },
 
     editClient: ({name, email, city_id, id}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/clients', {
-                token: lsService.get(),
                 id: id,
                 name: name,
                 email: email,
                 city: city_id
-            }
-        )
+            }, { headers })
     },
 
     deleteOrder: ({id, paypal_id, route}) => {
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.delete(apiConfig.ROUTER_OPTIONS.Back_End_Url + `/protected/${route}`, {
             params: {
                 id: id,
                 paypal_id: paypal_id,
                 route: route
             },
-            headers: {
-                token: lsService.get()
-            }
+            headers: headers
         })
     },
 
     editOrder: ({order}) => {
         console.log('in edit order');
+        const headers = { 'Authorization': `Bearer ${auth.getAccessToken()}`}
         return axios.put(apiConfig.ROUTER_OPTIONS.Back_End_Url + '/protected/orders', {
-                token: lsService.get(),
                 id: order.id,
                 client: order.client,
                 email: order.email,
@@ -185,7 +162,6 @@ export const apiService = {
                 datetime: order.datetime,
                 idclient: order.client_id,
                 idproduct: order.product_id
-            }
-        )
+            }, { headers })
     }
 };

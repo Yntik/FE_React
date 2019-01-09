@@ -7,7 +7,7 @@ import {apiService} from "../../services/api-service/api-service";
 import LocalStorage from 'localStorage'
 import Auth from '../../services/Auth0/Auth'
 
-class HomePageComponent extends React.Component {
+class CallBackComponent extends React.Component {
 
     citation = [
         'Билл Гейтс: "Разбивая работу на множество отдельных участков и поручая их множеству отдельных работников, вы можете зайти так далеко, что уже никто не будет представлять себе процесс в целом и колеса начнут вращаться вхолостую"',
@@ -24,18 +24,14 @@ class HomePageComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        apiService.checkToken()
-            .catch(err => {
-                console.log('false');
-                this.props.history.push(`/login`)
-            });
+        this.props.auth.handleAuthentication(() => {
+            this.props.history.push('/homepage')
+        })
     }
 
     render() {
         return <div className="container">
             <div className="jumbotron">
-                <h2><p className="text-info">Clockwise Clockware.</p></h2>
-                <h1>Добро пожаловать</h1>
                 <div className="App">
                     <p></p>
                     <p></p>
@@ -45,10 +41,6 @@ class HomePageComponent extends React.Component {
                     <p></p>
                 </div>
             </div>
-            <div className="panel-heading">Цитатка:</div>
-            <div className="alert alert-dismissible alert-primary">
-                {this.citation[Math.floor(Math.random() * 9)]}
-            </div>
         </div>
     }
 }
@@ -57,4 +49,4 @@ const mapStateToProps = (state) => {
     return state
 }
 
-export default connect(mapStateToProps)(HomePageComponent);
+export default connect(mapStateToProps)(CallBackComponent);

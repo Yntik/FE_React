@@ -6,15 +6,10 @@ import * as serviceWorker from './serviceWorker';
 import createSagaMiddleware from 'redux-saga';
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
-import {logger} from 'redux-logger';
-
-import {lsService} from "./services/LS-service/ls-service";
+import Auth from './services/Auth0/Auth'
 
 import createHistory from 'history/createBrowserHistory';
 import {Router, Route, Switch} from 'react-router';
-import {Link} from 'react-router-dom';
-import {routerReducer, routerMiddleware} from 'react-router-redux';
-import {initialState} from "./store/initialState/initialState";
 import {reducer} from "./store/reducer";
 
 import AuthComponent from './components/auth/AuthComponent'
@@ -24,7 +19,7 @@ import MastersComponent from './components/masters/MastersComponent'
 import AddMasterComponent from './components/add_master/AddMasterComponent'
 import EditMasterComponent from './components/edit_master/EditMasterComponent'
 
-import {HeaderComponent} from "./components/header/HeaderComponent";
+import HeaderComponent from "./components/header/HeaderComponent";
 
 import CitiesComponent from "./components/cities/CitiesComponent";
 import AddCityComponent from './components/add_city/AddCityComponent'
@@ -42,27 +37,22 @@ import EditProductComponent from "./components/edit_product/EditProductComponent
 import AddProductComponent from "./components/add_product/AddProductComponent";
 import EditOrderComponent from "./components/edit_order/EditOrderComponent";
 import ErrorComponent from "./components/errer/ErrerComponent";
+import CallBackComponent from "./components/callback/CallBackComponent";
 
+import {initialState} from './store/initialState/initialState'
 
 const history = createHistory();
-const sagaMiddleware = createSagaMiddleware();
-
-let flag = false;
-
-
-
-console.log('history', history);
 
 export const store = createStore(reducer);
 
 
-
 ReactDOM.render(
     <Provider store={store}>
-        <HeaderComponent history={history} />
-        <Router history={history} >
+        <HeaderComponent />
+        <Router history={history}>
             <Switch>
-                <Route path='/login' component={AuthComponent}/>
+                <Route path='/login'  component={AuthComponent}/>
+                <Route path='/callback'  component={CallBackComponent}/>
 
                 <Route path='/homepage' component={HomePageComponent}/>
 

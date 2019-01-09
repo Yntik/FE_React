@@ -82,7 +82,7 @@ class AddMasterComponent extends React.Component {
                         />
                         <label className="col-form-label">Город</label>
                         <select className="custom-select" required
-                                value={Infinity}
+                                value={this.props.master.city}
                                 onChange={(event) => {
                                     chooseCity(event.target.value);
                                 }}

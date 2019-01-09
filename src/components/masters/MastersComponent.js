@@ -1,10 +1,11 @@
 import React from 'react'
-
+import LocalStorage from 'localStorage'
 import {apiService} from "../../services/api-service/api-service";
 import {connect} from "react-redux";
 import {getMasters} from "../../store/action/mastersAction";
 import {bindActionCreators} from "redux";
-
+import Auth from '../../services/Auth0/Auth'
+import localStorage from "localStorage";
 
 class MastersComponent extends React.Component {
 
@@ -13,16 +14,16 @@ class MastersComponent extends React.Component {
         super(props);
         apiService.checkToken()
             .then(res => {
-                console.log('success');
+                console.log('ressss', res);
                 apiService.getMasters()
                     .then(res => {
                         this.props.getMasters(res.data.data);
-                        console.log(this.props);
                     })
             })
             .catch(err => {
+                console.log('false');
                 this.props.history.push(`/login`)
-            })
+            });
         this.onAddMaster = this.onAddMaster.bind(this);
     }
 
@@ -97,7 +98,10 @@ class MastersComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return state.mastersState
+    const mastersState = state.mastersState;
+    return {
+        ...mastersState
+    }
 };
 
 const mapActionToProps = (dispatch) => {

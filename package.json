@@ -21,7 +21,8 @@
     "redux-saga": "^0.16.2",
     "query-string": "^6.2.0",
     "moment": "^2.23.0",
-    "react-slideshow-image": "^1.0.10"
+    "auth0-js": "^9.8.2",
+    "auth0-lock": "^11.12.1"
   },
   "scripts": {
     "start": "react-scripts start",

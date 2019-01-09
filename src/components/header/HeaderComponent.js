@@ -1,17 +1,20 @@
 import React from 'react'
 import {lsService} from '../../services/LS-service/ls-service'
+import Auth from '../../services/Auth0/Auth'
+import {connect} from "react-redux";
 
+const auth = new Auth();
 
-export class HeaderComponent extends React.Component {
+class HeaderComponent extends React.Component {
+
     constructor(props) {
         super(props);
-        console.log('header page', this.props.history);
-        console.log('listen', this.props.history.listen);
+        this.logout = this.logout.bind(this)
     }
 
 
     logout(event) {
-        lsService.clear();
+        this.props.auth.logout();
     }
 
     render() {
@@ -43,11 +46,10 @@ export class HeaderComponent extends React.Component {
                                 <a className="btn btn-info" href='/products'>Ценовая политика</a>
                             </li>
                             <li className="nav-item">
-                                <form onSubmit={this.logout}>
                                     <button style={{position: 'absolute', right: 20, top: 20}} type="submit"
+                                            onClick={this.logout}
                                             className="btn btn-danger">Выход
                                     </button>
-                                </form>
                             </li>
                         </ul>
                     </div>
@@ -56,6 +58,10 @@ export class HeaderComponent extends React.Component {
         </header>
     }
 
-
 }
 
+const mapStateToProps = (state) => {
+    return state
+}
+
+export default connect(mapStateToProps)(HeaderComponent);
