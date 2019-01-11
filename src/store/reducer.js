@@ -19,6 +19,8 @@ import {EDIT_PRODUCT_ACTION} from "./action/EDIT_PRODUCT_ACTION";
 import {ADD_PRODUCT_ACTION} from "./action/ADD_PRODUCT_ACTION";
 
 
+
+
 export const reducer = (state = initialState, action) => {
     var copy ;
     switch (action.type) {

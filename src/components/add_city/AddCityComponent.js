@@ -9,7 +9,7 @@ import {writeName} from '../../store/action/addCityAction'
 
 class AddCityComponent extends React.Component {
 
-
+    MAX_INPUT_LENGTH = 30;
     constructor(props) {
         super(props);
         apiService.checkToken()
@@ -22,6 +22,7 @@ class AddCityComponent extends React.Component {
             });
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackToList = this.onBackToList.bind(this);
+        this.onValid = this.onValid.bind(this);
     }
 
     onSubmit(event) {
@@ -39,6 +40,19 @@ class AddCityComponent extends React.Component {
         this.props.history.push(`/cities`)
     }
 
+    onValid(value) {
+        let ValidStr = '';
+        for (let i in value) {
+            if (ValidStr.length >= this.MAX_INPUT_LENGTH) {
+                continue
+            }
+            else if(value[i].match(/[a-zA-Zа-яА-Я-/.]/ )) {
+                ValidStr += value[i];
+            }
+        }
+        return ValidStr
+    }
+
     render() {
         const {writeName} = this.props;
         return <div className="container">
@@ -51,7 +65,7 @@ class AddCityComponent extends React.Component {
                         <input className="form-control" type="text" placeholder="Название нового города" required
                                value={this.props.city.name}
                                onChange={(event) => {
-                                   writeName(event.target.value);
+                                   writeName(this.onValid(event.target.value));
                                }}
                         />
                         <button type="submit" className="btn btn-success">Добавить в список городов</button>

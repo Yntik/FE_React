@@ -68,7 +68,7 @@ class AddOrderComponent extends React.Component {
 
     inputControl = [0, 0, 0];
     flag = false;
-
+    MAX_INPUT_LENGTH = 30 ;
     constructor(props) {
         super(props);
         apiService.checkToken()
@@ -97,6 +97,20 @@ class AddOrderComponent extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackToList = this.onBackToList.bind(this);
         this.onGetFreeMasters = this.onGetFreeMasters.bind(this);
+        this.onValid = this.onValid.bind(this);
+    }
+
+    onValid(value) {
+        let ValidStr = '';
+        for (let i in value) {
+            if (ValidStr.length >= this.MAX_INPUT_LENGTH) {
+                continue
+            }
+            else if(value[i].match(/[a-zA-Zа-яА-Я-/.]/ )) {
+                ValidStr += value[i];
+            }
+        }
+        return ValidStr
     }
 
     onSubmit(event) {
@@ -152,7 +166,7 @@ class AddOrderComponent extends React.Component {
                         <input className="form-control" type="text" placeholder="Имя" required
                                value={this.props.order.name}
                                onChange={(event) => {
-                                   writeName(event.target.value);
+                                   writeName(this.onValid(event.target.value));
                                }}
                         />
                         <label className="col-form-label">email</label>
