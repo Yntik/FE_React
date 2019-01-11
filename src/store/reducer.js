@@ -17,6 +17,7 @@ import {EDIT_CLIENT_ACTION} from "./action/EDIT_CLIENT_ACTION";
 import {PRODUCTS_ACTION} from "./action/PRODUCTS_ACTION";
 import {EDIT_PRODUCT_ACTION} from "./action/EDIT_PRODUCT_ACTION";
 import {ADD_PRODUCT_ACTION} from "./action/ADD_PRODUCT_ACTION";
+import {HEADER_ACTION} from "./action/HEADER_ACTION";
 
 
 
@@ -695,6 +696,14 @@ export const reducer = (state = initialState, action) => {
 
                 }
             };
+
+        case HEADER_ACTION.ACTION_CHANGE_POSITION:
+
+            return {
+                ...state, headerState: {
+                    position: action.payload
+                }
+            }
 
     }
     return state;

@@ -1,15 +1,17 @@
 import React from 'react'
-import {lsService} from '../../services/LS-service/ls-service'
-import Auth from '../../services/Auth0/Auth'
 import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {ChangePosition} from "../../store/action/headerAction";
+import {getMasters} from "../../store/action/mastersAction";
 
-const auth = new Auth();
 
 class HeaderComponent extends React.Component {
 
+    ROUTES = ['/homepage', '/masters', '/cities', '/orders', '/clients', '/products', '/callback'];
     constructor(props) {
         super(props);
-        this.logout = this.logout.bind(this)
+        this.logout = this.logout.bind(this);
+        this.props.ChangePosition(this.props.history.location.pathname)
     }
 
 
@@ -18,7 +20,17 @@ class HeaderComponent extends React.Component {
     }
 
     render() {
-
+        if (this.ROUTES.indexOf(this.props.headerState.position) === -1) {
+            return <header>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+                    <div className="collapse navbar-collapse" id="navbarColor01">
+                        <div className="alert alert-dismissible alert-secondary">
+                            Clockwise Clockware.
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        }
         return <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="collapse navbar-collapse" id="navbarColor01">
@@ -46,10 +58,10 @@ class HeaderComponent extends React.Component {
                                 <a className="btn btn-info" href='/products'>Ценовая политика</a>
                             </li>
                             <li className="nav-item">
-                                    <button style={{position: 'absolute', right: 20, top: 20}} type="submit"
-                                            onClick={this.logout}
-                                            className="btn btn-danger">Выход
-                                    </button>
+                                <button style={{position: 'absolute', right: 20, top: 20}} type="submit"
+                                        onClick={this.logout}
+                                        className="btn btn-danger">Выход
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -64,4 +76,10 @@ const mapStateToProps = (state) => {
     return state
 }
 
-export default connect(mapStateToProps)(HeaderComponent);
+const mapActionToProps = (dispatch) => {
+    return {
+        ChangePosition: bindActionCreators(ChangePosition, dispatch),
+    };
+};
+
+export default connect(mapStateToProps, mapActionToProps)(HeaderComponent);

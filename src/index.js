@@ -48,7 +48,7 @@ export const store = createStore(reducer);
 
 ReactDOM.render(
     <Provider store={store}>
-        <HeaderComponent />
+        <HeaderComponent  history={history}/>
         <Router history={history}>
             <Switch>
                 <Route path='/login'  component={AuthComponent}/>

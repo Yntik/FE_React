@@ -17,6 +17,7 @@ import {editProductState} from "./editProductState";
 import {addProductState} from "./addProductState";
 
 import Auth from '../../services/Auth0/Auth';
+import {headerState} from "./headerState";
 export const initialState = {
     mastersState: mastersState,
     addMasterState: addMasterState,
@@ -35,5 +36,6 @@ export const initialState = {
     productsState: productsState,
     editProductState: editProductState,
     addProductState: addProductState,
-    auth: new Auth()
+    auth: new Auth(),
+    headerState: headerState
 };
