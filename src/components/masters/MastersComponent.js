@@ -41,9 +41,9 @@ class MastersComponent extends React.Component {
                 search: `?id=${master.id}&name=${master.name}&surname=${master.surname}&rating=${master.rating}&city=${master.idcity}`,
             })
         }
-        const onDeleteMaster = (master) => {
+        const onDeleteMaster = async (master) => {
             console.log('egp')
-            apiService.delete({id: master.id, route: 'masters'})
+            await apiService.delete({id: master.id, route: 'masters'})
             apiService.getMasters()
                 .then(res => {
                     this.props.getMasters(res.data.data);

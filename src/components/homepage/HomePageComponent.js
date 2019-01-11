@@ -6,6 +6,7 @@ import clock from './images/clock.jpg'
 import {apiService} from "../../services/api-service/api-service";
 import LocalStorage from 'localStorage'
 import Auth from '../../services/Auth0/Auth'
+import auth0 from "auth0-js";
 
 class HomePageComponent extends React.Component {
 
@@ -21,6 +22,12 @@ class HomePageComponent extends React.Component {
         'Дэйвид Огилви: "Почему одни предпочитают "Джэк Дэниэлc, а другие - "Оулд Крау" или "Тэйлор. Может быть, люди различают виски на вкус? Не смешите меня. Суть дела в том, что у каждой марки есть свой облик, и то, что нравится одним, не подходит для других. Люди выбирают не само виски, а его образ"',
         'Роберт Шемин: "Любое действие имеет свой риск и цену этого риска, точно также как и любое бездействие"',
     ];
+    users = new Map([
+        ['auth0|5c34b23a8c95bf31dd039403', {
+            name: 'Александр',
+            surname: 'Иващенко'
+        }]
+    ]);
 
     constructor(props) {
         super(props);
@@ -35,7 +42,10 @@ class HomePageComponent extends React.Component {
         return <div className="container">
             <div className="jumbotron">
                 <h2><p className="text-info">Clockwise Clockware.</p></h2>
-                <h1>Добро пожаловать</h1>
+                <h1>Добро пожаловать<br/>
+                    {this.users.get(localStorage.getItem('user_id')).name} <br/>
+                    {this.users.get(localStorage.getItem('user_id')).surname}
+                </h1>
                 <div className="App">
                     <p></p>
                     <p></p>

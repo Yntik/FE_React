@@ -1,11 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
 import '../../App.css'
 import clock from './images/clock.jpg'
-import {apiService} from "../../services/api-service/api-service";
-import LocalStorage from 'localStorage'
-import Auth from '../../services/Auth0/Auth'
+import queryString from 'query-string'
+
 
 class CallBackComponent extends React.Component {
 
@@ -25,7 +23,7 @@ class CallBackComponent extends React.Component {
     constructor(props) {
         super(props);
         this.props.auth.handleAuthentication(() => {
-            this.props.history.push('/homepage')
+            this.props.history.push('/homepage');
         })
     }
 
