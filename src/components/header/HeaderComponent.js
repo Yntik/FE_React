@@ -18,6 +18,7 @@ class HeaderComponent extends React.Component {
 
     logout(event) {
         this.props.auth.logout();
+        event.preventDefault();
     }
 
     render() {
