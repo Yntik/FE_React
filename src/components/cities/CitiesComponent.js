@@ -40,9 +40,9 @@ class CitiesComponent extends React.Component {
                 search: `?id=${city.id}&name=${city.city}`,
             })
         }
-        const onDelete = (city) => {
+        const onDelete =  async (city) => {
             console.log('egp')
-            apiService.delete({id: city.id, route: 'cities'})
+            await apiService.delete({id: city.id, route: 'cities'})
             apiService.getCities()
                 .then(res => {
                     this.props.getCities(res.data.data);
@@ -72,13 +72,13 @@ class CitiesComponent extends React.Component {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input
+                                <td><input className="btn btn-warning"
                                     type="button"
                                     value="Редактировать"
                                     onClick={(event) => {
                                         onEditMaster(city)
                                     }}/></td>
-                                <td><input
+                                <td><input className="btn btn-danger"
                                     type="button"
                                     value="Удалить"
                                     onClick={(event) => {

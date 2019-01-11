@@ -9,7 +9,7 @@ import {apiService} from "../../services/api-service/api-service";
 
 export class EditCityComponent extends React.Component {
 
-
+    MAX_INPUT_LENGTH = 30;
     constructor(props) {
         super(props);
         const city = queryString.parse(this.props.location.search);
@@ -27,6 +27,7 @@ export class EditCityComponent extends React.Component {
             })
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackToList = this.onBackToList.bind(this);
+        this.onValid = this.onValid.bind(this);
     }
 
 
@@ -46,6 +47,20 @@ export class EditCityComponent extends React.Component {
         this.props.history.push(`/cities`)
     }
 
+    onValid(value) {
+        let ValidStr = '';
+        for (let i in value) {
+            if (ValidStr.length >= this.MAX_INPUT_LENGTH) {
+                continue
+            }
+            else if(value[i].match(/[a-zA-Zа-яА-Я-/.]/ )) {
+                ValidStr += value[i];
+            }
+        }
+        return ValidStr
+    }
+
+
     render() {
         return <div className="container">
             <div className="jumbotron">
@@ -57,8 +72,7 @@ export class EditCityComponent extends React.Component {
                         <input className="form-control" type="text" placeholder="Название города" required
                                value={this.state.name}
                                onChange={(event) => {
-                                   console.log(event.target.value);
-                                   this.setState({name: event.target.value
+                                   this.setState({name: this.onValid(event.target.value)
                                        });
                                }}
                         />

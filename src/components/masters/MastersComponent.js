@@ -73,13 +73,13 @@ class MastersComponent extends React.Component {
                                 <td>{master.surname}</td>
                                 <td>{master.rating}</td>
                                 <td>{master.city}</td>
-                                <td><input
+                                <td><input className="btn btn-warning"
                                     type="button"
                                     value="Редактировать"
                                     onClick={(event) => {
                                         onEditMaster(master)
                                     }}/></td>
-                                <td><input
+                                <td><input className="btn btn-danger"
                                     type="button"
                                     value="Удалить"
                                     onClick={(event) => {

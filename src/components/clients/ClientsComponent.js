@@ -64,13 +64,13 @@ class ClientsComponent extends React.Component {
                                 <td>{client.email}</td>
                                 <td>{client.city}</td>
                                 <td></td>
-                                <td><input
+                                <td><input className="btn btn-warning"
                                     type="button"
                                     value="Редактировать"
                                     onClick={(event) => {
                                         onEdit(client)
                                     }}/></td>
-                                <td><input
+                                <td><input className="btn btn-danger"
                                     type="button"
                                     value="Удалить"
                                     onClick={(event) => {

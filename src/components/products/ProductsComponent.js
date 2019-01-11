@@ -72,13 +72,13 @@ class ProductsComponent extends React.Component {
                                 <td>{product.price}</td>
                                 <td></td>
                                 <td></td>
-                                <td><input
+                                <td><input className="btn btn-warning"
                                     type="button"
                                     value="Редактировать"
                                     onClick={(event) => {
                                         onEdit(product)
                                     }}/></td>
-                                <td><input
+                                <td><input className="btn btn-danger"
                                     type="button"
                                     value="Удалить"
                                     onClick={(event) => {

@@ -17,7 +17,7 @@ import {
 
 class EditMasterComponent extends React.Component {
 
-
+    MAX_INPUT_LENGTH = 30 ;
     constructor(props) {
         super(props);
         const master = queryString.parse(this.props.location.search);
@@ -52,6 +52,7 @@ class EditMasterComponent extends React.Component {
         this.props.onEditMaster(master);
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackToList = this.onBackToList.bind(this);
+        this.onValid = this.onValid.bind(this);
     }
 
     onSubmit(event) {
@@ -70,6 +71,19 @@ class EditMasterComponent extends React.Component {
         this.props.history.push(`/masters`)
     }
 
+    onValid(value) {
+        let ValidStr = '';
+        for (let i in value) {
+            if (ValidStr.length >= this.MAX_INPUT_LENGTH) {
+                continue
+            }
+            else if(value[i].match(/[a-zA-Zа-яА-Я]/ )) {
+                ValidStr += value[i];
+            }
+        }
+        return ValidStr
+    }
+
     render() {
         const {writeName, writeSurname, chooseCity, chooseRating} = this.props
         return <div className="container">
@@ -82,14 +96,14 @@ class EditMasterComponent extends React.Component {
                         <input className="form-control" type="text" placeholder="Имя" required
                                value={this.props.master.name}
                                onChange={(event) => {
-                                   writeName(event.target.value);
+                                   writeName(this.onValid(event.target.value));
                                }}
                         />
                         <label className="col-form-label">Фамилия</label>
                         <input className="form-control" type="text" placeholder="Фамилия" required
                                value={this.props.master.surname}
                                onChange={(event) => {
-                                   writeSurname(event.target.value);
+                                   writeSurname(this.onValid(event.target.value));
                                }}
                         />
                         <label className="col-form-label">Рейтинг</label>

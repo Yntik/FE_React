@@ -10,7 +10,7 @@ import {writePrice, writeSize} from '../../store/action/editProductAction'
 
 class EditProductComponent extends React.Component {
 
-
+    MAX_INPUT_LENGTH = 30;
     constructor(props) {
         super(props);
         const product = queryString.parse(this.props.location.search);
@@ -29,6 +29,7 @@ class EditProductComponent extends React.Component {
             })
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackToList = this.onBackToList.bind(this);
+        this.onValid = this.onValid.bind(this);
     }
 
     onSubmit(event) {
@@ -44,6 +45,19 @@ class EditProductComponent extends React.Component {
         this.props.history.push(`/products`)
     }
 
+    onValid(value) {
+        let ValidStr = '';
+        for (let i in value) {
+            if (ValidStr.length >= this.MAX_INPUT_LENGTH) {
+                continue
+            }
+            else if(value[i].match(/[0-9/.]/ )) {
+                ValidStr += value[i];
+            }
+        }
+        return ValidStr
+    }
+
     render() {
         const {writeSize, writePrice} = this.props
         return <div className="container">
@@ -56,14 +70,14 @@ class EditProductComponent extends React.Component {
                         <input className="form-control" type="text" placeholder="Размер" required
                                value={this.props.size}
                                onChange={(event) => {
-                                   writeSize(event.target.value);
+                                   writeSize(this.onValid(event.target.value));
                                }}
                         />
                         <label className="col-form-label">Действующая цена</label>
                         <input className="form-control" type="text" placeholder="Цена" required
                                value={this.props.price}
                                onChange={(event) => {
-                                   writePrice(event.target.value);
+                                   writePrice(this.onValid(event.target.value));
                                }}
                         />
                         <p></p>

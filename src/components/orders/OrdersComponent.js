@@ -80,13 +80,13 @@ class OrdersComponent extends React.Component {
                                 <td>{order.price}</td>
                                 <td>{moment(order.start).format('MMMM Do YYYY, h:mm:ss a')}</td>
                                 <td>{moment(order.end).format('MMMM Do YYYY, h:mm:ss a')}</td>
-                                <td><input
+                                <td><input className="btn btn-warning"
                                     type="button"
                                     value="Редактировать"
                                     onClick={(event) => {
                                         onEdit(order)
                                     }}/></td>
-                                <td><input
+                                <td><input className="btn btn-danger"
                                     type="button"
                                     value="Удалить"
                                     onClick={(event) => {

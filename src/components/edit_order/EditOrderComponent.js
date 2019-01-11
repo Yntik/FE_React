@@ -42,7 +42,7 @@ class EditOrderComponent extends React.Component {
 
     inputControl = [1, 1, 1];
     flag = false;
-
+    MAX_INPUT_LENGTH = 30;
     constructor(props) {
         super(props);
         const order = queryString.parse(this.props.location.search);
@@ -83,6 +83,8 @@ class EditOrderComponent extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackToList = this.onBackToList.bind(this);
         this.onGetFreeMasters = this.onGetFreeMasters.bind(this);
+        this.onValidClient = this.onValidClient.bind(this);
+        this.onValidPrice = this.onValidPrice.bind(this);
     }
 
     onSubmit(event) {
@@ -126,6 +128,32 @@ class EditOrderComponent extends React.Component {
         }
     }
 
+    onValidClient(value) {
+        let ValidStr = '';
+        for (let i in value) {
+            if (ValidStr.length >= this.MAX_INPUT_LENGTH) {
+                continue
+            }
+            else if(value[i].match(/[a-zA-Zа-яА-Я-/.]/ )) {
+                ValidStr += value[i];
+            }
+        }
+        return ValidStr
+    }
+
+    onValidPrice(value) {
+        let ValidStr = '';
+        for (let i in value) {
+            if (ValidStr.length >= this.MAX_INPUT_LENGTH) {
+                continue
+            }
+            else if(value[i].match(/[0-9/.]/ )) {
+                ValidStr += value[i];
+            }
+        }
+        return ValidStr
+    }
+
     render() {
         const {writeClient, writeEmail, chooseCity, choosePrice, chooseSize, chooseDatetime, chooseProduct, chooseMaster} = this.props;
         return <div className="container">
@@ -138,7 +166,7 @@ class EditOrderComponent extends React.Component {
                         <input className="form-control" type="text" placeholder="Имя" required
                                value={this.props.order.client}
                                onChange={(event) => {
-                                   writeClient(event.target.value);
+                                   writeClient(this.onValid(event.target.value));
                                }}
                         />
                         <label className="col-form-label">email</label>
@@ -171,10 +199,10 @@ class EditOrderComponent extends React.Component {
                             })}
                         </select>
                         <label className="col-form-label">Стоимость</label>
-                        <input className="form-control" type="number" placeholder="Имя" required
+                        <input className="form-control" type="text" placeholder="Имя" required
                                value={this.props.order.price}
                                onChange={(event) => {
-                                   choosePrice(event.target.value);
+                                   choosePrice(this.onValidPrice(event.target.value));
                                }}
                         />
                         <label className="col-form-label">Город</label>

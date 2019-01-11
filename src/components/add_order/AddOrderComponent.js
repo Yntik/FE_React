@@ -68,7 +68,7 @@ class AddOrderComponent extends React.Component {
 
     inputControl = [0, 0, 0];
     flag = false;
-    MAX_INPUT_LENGTH = 30 ;
+    MAX_INPUT_LENGTH = 30;
     constructor(props) {
         super(props);
         apiService.checkToken()
