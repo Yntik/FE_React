@@ -36,7 +36,7 @@ class OrdersComponent extends React.Component {
         const onEdit = (order) => {
             this.props.history.push({
                 pathname: '/edit_order',
-                search: `?id=${order.id}&client=${order.client}&email=${order.email}&price=${order.price}&size=${order.size}&city_id=${order.idcity}&product_id=${order.idproduct}&master_id=${order.idmaster}&client_id=${order.idclient}&datetime=${order.start}`,
+                search: `?id=${order.id}&client=${order.client.name}&email=${order.client.email}&price=${order.price}&size=${order.product.size}&city_id=${order.idcity}&product_id=${order.idproduct}&master_id=${order.idmaster}&client_id=${order.idclient}&datetime=${order.start}`,
             })
         }
         const onDelete = async (order) => {
@@ -71,12 +71,12 @@ class OrdersComponent extends React.Component {
                     {this.props.orders.map((order, i) => {
                         return (
                             <tr key={i} className="table-info">
-                                <td>{order.client}</td>
-                                <td>{order.email}</td>
-                                <td>{order.city}</td>
-                                <td>{order.size}</td>
-                                <td>{order.name}</td>
-                                <td>{order.surname}</td>
+                                <td>{order.client.name}</td>
+                                <td>{order.client.email}</td>
+                                <td>{order.city.city}</td>
+                                <td>{order.product.size}</td>
+                                <td>{order.master.name}</td>
+                                <td>{order.master.surname}</td>
                                 <td>{order.price}</td>
                                 <td>{moment(order.start).format('MMMM Do YYYY, h:mm:ss a')}</td>
                                 <td>{moment(order.end).format('MMMM Do YYYY, h:mm:ss a')}</td>

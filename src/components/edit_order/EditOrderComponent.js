@@ -166,7 +166,7 @@ class EditOrderComponent extends React.Component {
                         <input className="form-control" type="text" placeholder="Имя" required
                                value={this.props.order.client}
                                onChange={(event) => {
-                                   writeClient(this.onValid(event.target.value));
+                                   writeClient(this.onValidClient(event.target.value));
                                }}
                         />
                         <label className="col-form-label">email</label>

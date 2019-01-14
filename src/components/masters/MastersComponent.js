@@ -72,7 +72,7 @@ class MastersComponent extends React.Component {
                                 <td>{master.name}</td>
                                 <td>{master.surname}</td>
                                 <td>{master.rating}</td>
-                                <td>{master.city}</td>
+                                <td>{master.city.city}</td>
                                 <td><input className="btn btn-warning"
                                     type="button"
                                     value="Редактировать"
