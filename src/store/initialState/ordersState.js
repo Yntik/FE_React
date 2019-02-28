@@ -1,3 +1,3 @@
 export const ordersState ={
-    orders: []
-}
+	orders: []
+};

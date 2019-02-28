@@ -69,6 +69,7 @@ class AddOrderComponent extends React.Component {
     inputControl = [0, 0, 0];
     flag = false;
     MAX_INPUT_LENGTH = 30;
+
     constructor(props) {
         super(props);
         apiService.checkToken()
@@ -106,7 +107,7 @@ class AddOrderComponent extends React.Component {
             if (ValidStr.length >= this.MAX_INPUT_LENGTH) {
                 continue
             }
-            else if(value[i].match(/[a-zA-Zа-яА-Я-/.]/ )) {
+            else if (value[i].match(/[a-zA-Zа-яА-Я-/.]/)) {
                 ValidStr += value[i];
             }
         }

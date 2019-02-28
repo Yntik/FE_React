@@ -24,11 +24,18 @@
     "auth0-js": "^9.8.2",
     "auth0-lock": "^11.12.1"
   },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "tslint": "^5.13.0",
+    "typescript": "^3.3.3333"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "aws s3 sync build/ s3://clockware",
+    "lint": "node node_modules/eslint/bin/eslint.js --fix ./src"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,5 +1,5 @@
 export const addCityState = {
-    city: {
-        name: '',
-    }
+	city: {
+		name: '',
+	}
 };

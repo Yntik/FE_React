@@ -1,9 +1,9 @@
 export const addMasterState = {
-    master: {
-        name: '',
-        surname: '',
-        rating: '',
-        city: '',
-    },
-    cities: []
-}
+	master: {
+		name: '',
+		surname: '',
+		rating: '',
+		city: '',
+	},
+	cities: []
+};

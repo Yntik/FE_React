@@ -1,4 +1,4 @@
 export const editProductState = {
-    price: '',
-    size: ''
+	price: '',
+	size: ''
 };

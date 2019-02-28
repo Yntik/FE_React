@@ -16,7 +16,7 @@ class ClientsComponent extends React.Component {
                 console.log('success');
                 apiService.getClients()
                     .then(res => {
-                        console.log('yeah',res.data.data)
+                        console.log('yeah',res.data.data);
                         this.props.getClients(res.data.data);
                     })
             })
@@ -62,7 +62,7 @@ class ClientsComponent extends React.Component {
                             <tr key={i} className="table-info">
                                 <td>{client.name}</td>
                                 <td>{client.email}</td>
-                                <td>{client.city}</td>
+                                <td>{client.city.city}</td>
                                 <td></td>
                                 <td><input className="btn btn-warning"
                                     type="button"

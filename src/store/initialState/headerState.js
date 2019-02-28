@@ -1,3 +1,3 @@
 export const headerState = {
-    position: ''
+	position: ''
 };

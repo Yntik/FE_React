@@ -29,8 +29,8 @@ export default class Auth {
         this.auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 console.log('setSession');
-                localStorage.setItem('user_id', authResult.idTokenPayload.sub)
-                this.setSession(authResult)
+                localStorage.setItem('user_id', authResult.idTokenPayload.sub);
+                this.setSession(authResult);
                 return next()
             } else if (err) {
                 console.log(err);
