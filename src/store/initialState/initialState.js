@@ -1,41 +1,41 @@
-import {mastersState} from "./mastersState";
-import {addMasterState} from "./addMasterState";
-import {editMasterState} from "./editMasterState";
+import {mastersState} from './mastersState';
+import {addMasterState} from './addMasterState';
+import {editMasterState} from './editMasterState';
 
-import {citiesState} from "./citiesState";
-import {addCityState} from "./addCityState";
+import {citiesState} from './citiesState';
+import {addCityState} from './addCityState';
 
-import {ordersState} from "./ordersState";
-import {addOrderState} from "./addOrderState";
-import {editOrderState} from "./editOrderState";
+import {ordersState} from './ordersState';
+import {addOrderState} from './addOrderState';
+import {editOrderState} from './editOrderState';
 
-import {clientsState} from "./clientsState";
-import {editClientState} from "./editClientState";
+import {clientsState} from './clientsState';
+import {editClientState} from './editClientState';
 
-import {productsState} from "./productsState";
-import {editProductState} from "./editProductState";
-import {addProductState} from "./addProductState";
+import {productsState} from './productsState';
+import {editProductState} from './editProductState';
+import {addProductState} from './addProductState';
 
 import Auth from '../../services/Auth0/Auth';
-import {headerState} from "./headerState";
+import {headerState} from './headerState';
 export const initialState = {
-    mastersState: mastersState,
-    addMasterState: addMasterState,
-    editMasterState: editMasterState,
+	mastersState: mastersState,
+	addMasterState: addMasterState,
+	editMasterState: editMasterState,
 
-    citiesState: citiesState,
-    addCityState: addCityState,
+	citiesState: citiesState,
+	addCityState: addCityState,
 
-    ordersState: ordersState,
-    addOrderState: addOrderState,
-    editOrderState: editOrderState,
+	ordersState: ordersState,
+	addOrderState: addOrderState,
+	editOrderState: editOrderState,
 
-    clientsState: clientsState,
-    editClientState: editClientState,
+	clientsState: clientsState,
+	editClientState: editClientState,
 
-    productsState: productsState,
-    editProductState: editProductState,
-    addProductState: addProductState,
-    auth: new Auth(),
-    headerState: headerState
+	productsState: productsState,
+	editProductState: editProductState,
+	addProductState: addProductState,
+	auth: new Auth(),
+	headerState: headerState
 };

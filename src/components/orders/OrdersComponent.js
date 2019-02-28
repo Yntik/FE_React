@@ -36,11 +36,11 @@ class OrdersComponent extends React.Component {
         const onEdit = (order) => {
             this.props.history.push({
                 pathname: '/edit_order',
-                search: `?id=${order.id}&client=${order.client.name}&email=${order.client.email}&price=${order.price}&size=${order.product.size}&city_id=${order.idcity}&product_id=${order.idproduct}&master_id=${order.idmaster}&client_id=${order.idclient}&datetime=${order.start}`,
+                search: `?id=${order.id}&client=${order.client.name}&email=${order.client.email}&price=${order.price}&size=${order.product.size}&city_id=${order.city_id}&product_id=${order.product_id}&master_id=${order.master_id}&client_id=${order.client_id}&datetime=${order.start}`,
             })
         }
         const onDelete = async (order) => {
-            await apiService.deleteOrder({id: order.id,paypal_id: order.idpaypal, route: 'orders'})
+            await apiService.deleteOrder({id: order.id,paypal_id: order.paypal_id, route: 'orders'})
             apiService.getOrders()
                 .then(res => {
                     this.props.dispatch(getOrders(res.data.data));

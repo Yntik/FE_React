@@ -1,3 +1,3 @@
 export const citiesState = {
-    cities: []
-}
+	cities: []
+};

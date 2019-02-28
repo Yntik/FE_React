@@ -1,3 +1,3 @@
 export const productsState = {
-    products: []
-}
+	products: []
+};

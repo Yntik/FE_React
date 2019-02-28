@@ -1,9 +1,9 @@
 export const editClientState = {
-    client: {
-        name: '',
-        email: '',
-        city_id: '',
-        id: ''
-    },
-    cities: []
-}
+	client: {
+		name: '',
+		email: '',
+		city_id: '',
+		id: ''
+	},
+	cities: []
+};

@@ -1,4 +1,4 @@
 export const addProductState = {
-    size: '',
-    price: ''
+	size: '',
+	price: ''
 };
